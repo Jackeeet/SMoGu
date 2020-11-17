@@ -9,11 +9,11 @@ using System.Diagnostics;
 
 namespace Smogu
 {
-    class InvestmentForm : Form
+    class InvestmentInfoForm : Form
     {
         private static int labelHeight = 30;
         private static int textBoxHeight = 50;
-        public InvestmentForm(Investment investment)
+        public InvestmentInfoForm(Investment investment)
         {
             ClientSize = new Size(800, 600);
             var panelWidth = ClientSize.Width / 2;
