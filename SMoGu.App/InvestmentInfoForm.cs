@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
 
-namespace Smogu
+namespace SMoGu.App
 {
     class InvestmentInfoForm : Form
     {
@@ -51,11 +51,11 @@ namespace Smogu
             Controls.Add(infoPanel);
 
             infoPanel.Controls.Add(CreateLabel("Предполагаемый доход:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.ProfitEstimate.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(investment.ProceedsEstimate.ToString()));
             infoPanel.Controls.Add(CreateLabel("Предполагаемые риски:"));
             infoPanel.Controls.Add(CreateTextBox(investment.RiskEstimate.ToString()));
             infoPanel.Controls.Add(CreateLabel("Процент выгодности инвестиции:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.StonksPercentage.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(investment.ProfitPercentage.ToString()));
         }
 
         private Label CreateLabel(string text)

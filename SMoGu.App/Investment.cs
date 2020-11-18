@@ -3,41 +3,48 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Smogu
+namespace SMoGu.App
 {
     public class Investment
     {
         public readonly string InvestmentName;
-        public readonly Decimal Amount;
+        public readonly decimal Amount;
         public readonly CurrencyType Currency;
 
-        private double riskEstimate;
-        private double proceedsEstimate;
-        private double profitPercentage;
+        public double RiskEstimate { get; private set; }
+        public double ProceedsEstimate { get; private set; }
+        public double ProfitPercentage { get; private set; }
 
-        public Investment(string name, Decimal amount, CurrencyType currency)
+        public Investment(string name, decimal amount, CurrencyType currency)
         {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException();
             InvestmentName = name;
+            if (amount < new decimal(0.01))
+                throw new ArgumentException();
             Amount = amount;
             Currency = currency;
-            riskEstimate = CalculateRiskEstimate();
-            proceedsEstimate = CalculateProceedsEstimate();
-            profitPercentage = CalculateProfitPercentage();
+
+            RiskEstimate = CalculateRiskEstimate();
+            ProceedsEstimate = CalculateProceedsEstimate();
+            ProfitPercentage = CalculateProfitPercentage();
         }
 
-        private static double CalculateRiskEstimate()
+        private double CalculateRiskEstimate()
         {
-            throw new NotImplementedException();
+            // temporary
+            return 0.0;
         }
 
-        private static double CalculateProceedsEstimate()
+        private double CalculateProceedsEstimate()
         {
-            throw new NotImplementedException();
+            // temporary
+            return 0.0;
         }
 
-        private static double CalculateProfitPercentage()
+        private double CalculateProfitPercentage()
         {
-            throw new NotImplementedException();
+            return ProceedsEstimate / (double)Amount * 100;
         }
 
         public override bool Equals(object obj)
@@ -51,7 +58,7 @@ namespace Smogu
         {
             unchecked
             {
-                return (int)Amount * 7127 + Currency * 7121 + InvestmentName.GetHashCode();
+                return (int)Amount * 7127 + (int)Currency * 7121 + InvestmentName.GetHashCode();
             }
         }
 
