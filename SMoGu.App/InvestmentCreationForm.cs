@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
 
-namespace Smogu
+namespace SMoGu.App
 {
     class InvestmentCreationForm : Form
     {
@@ -23,6 +23,8 @@ namespace Smogu
             ClientSize = new Size(width, 300);
             Text = "Создание инвестиции";
             BackColor = Color.AliceBlue;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
 
             var optionsPanel = new Panel
             {
