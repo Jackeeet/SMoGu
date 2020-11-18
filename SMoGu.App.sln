@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMoGu.App", "SMoGu.App\SMoGu.App.csproj", "{28EC76DB-0EF3-4693-A526-8F499D767361}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28EC76DB-0EF3-4693-A526-8F499D767361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28EC76DB-0EF3-4693-A526-8F499D767361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28EC76DB-0EF3-4693-A526-8F499D767361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28EC76DB-0EF3-4693-A526-8F499D767361}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0981605-FDB6-4321-9B8E-3936FE9B121E}
+	EndGlobalSection
+EndGlobal
