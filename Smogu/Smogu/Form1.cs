@@ -35,7 +35,7 @@ namespace Smogu
 
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
-            var queueItems = new Queue<int>(); // очередь данных отношения валют
+            var queueItems = new Queue<double>(); // очередь данных отношения валют
             queueItems.Enqueue(1);    //проба
             queueItems.Enqueue(3);    //проба
             queueItems.Enqueue(15);   //проба
@@ -83,6 +83,20 @@ namespace Smogu
             double left = 0, x, y;
             this.chart1.Series[0].Points.Clear();
             x = left;
+            /*while (x < count)//count это размер графика, который бует выбираться пользователем
+            {
+                try
+                {
+                    y = queueItems.Dequeue();
+                }
+                catch (InvalidOperationException)
+                {
+                    break;
+                }
+
+                this.chart1.Series[0].Points.AddXY(x, y);
+                x += valueX.Item1;
+            }*/
             while (true)
             {
                 try
