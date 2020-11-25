@@ -8,14 +8,15 @@ namespace SMoGu.App
     public class Investment
     {
         public readonly string InvestmentName;
-        public readonly decimal Amount;
-        public readonly CurrencyType Currency;
+        public readonly decimal Amount; // инвестируемая сумма
+        public readonly CurrencyType Currency; // валюта
+        public readonly int PredictionPeriod; // период прогнозирования изменения курса в днях
 
-        public double RiskEstimate { get; private set; }
-        public double ProceedsEstimate { get; private set; }
-        public double ProfitPercentage { get; private set; }
+        public double RiskEstimate { get; private set; } // предполагаемые риски
+        public double ProceedsEstimate { get; private set; } // предполагаемая прибыль (за сколько можно будет продать)
+        public double ProfitPercentage { get; private set; } // процент доходности
 
-        public Investment(string name, decimal amount, CurrencyType currency)
+        public Investment(string name, decimal amount, CurrencyType currency, int period)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException();
@@ -24,6 +25,7 @@ namespace SMoGu.App
                 throw new ArgumentException();
             Amount = amount;
             Currency = currency;
+            PredictionPeriod = period;
 
             RiskEstimate = CalculateRiskEstimate();
             ProceedsEstimate = CalculateProceedsEstimate();
@@ -44,6 +46,9 @@ namespace SMoGu.App
 
         private double CalculateProfitPercentage()
         {
+            // формула отсюда
+            // https://activeinvestor.pro/kak-schitat-dohodnost-investitsij-formuly-rascheta/
+            // это первый попавшийся сайт на самом деле, я не шарю
             return ProceedsEstimate / (double)Amount * 100;
         }
 

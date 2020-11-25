@@ -18,8 +18,11 @@ namespace SMoGu.App
         //для valueY.Item1 можно сделать очередь, то есть при нажатии на кнопку выбора валюты будет
         //браться опредленная очередь
 
+        public readonly Investments invs;
+
         public Form1()
         {
+            invs = new Investments();
             InitializeComponent();
 
         }
