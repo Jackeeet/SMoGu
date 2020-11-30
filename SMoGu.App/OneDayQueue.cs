@@ -12,7 +12,7 @@ namespace SMoGu.App
 
         public OneDayQueue()
         {
-            HourlyDataParcer parcer = new HourlyDataParcer();
+            HourlyDataParser parcer = new HourlyDataParser();
             queue = parcer.getData();
         }
 

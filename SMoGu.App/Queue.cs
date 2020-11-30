@@ -24,7 +24,7 @@ namespace SMoGu.App
 		}
 
 		public QueueItem<T> Head { get; private set; }
-		QueueItem<T> tail;
+		public QueueItem<T> Tail;
 		public int Count { get; private set; }
 
 		public bool IsEmpty { get { return Head == null; } }
@@ -32,12 +32,12 @@ namespace SMoGu.App
 		public void Enqueue(T value)
 		{
 			if (IsEmpty)
-				tail = Head = new QueueItem<T> { Value = value, Next = null };
+				Tail = Head = new QueueItem<T> { Value = value, Next = null, Previous = null };
 			else
 			{
-				var item = new QueueItem<T> { Value = value, Next = null };
-				tail.Next = item;
-				tail = item;
+				var item = new QueueItem<T> { Value = value, Next = null, Previous = Tail };
+				Tail.Next = item;
+				Tail = item;
 			}
 			Count++;
 		}
@@ -48,7 +48,7 @@ namespace SMoGu.App
 			var result = Head.Value;
 			Head = Head.Next;
 			if (Head == null)
-				tail = null;
+				Tail = null;
 			Count--;
 			return result;
 		}
@@ -69,5 +69,7 @@ namespace SMoGu.App
     {
         public T Value { get; set; }
         public QueueItem<T> Next { get; set; }
+
+		public QueueItem<T> Previous { get; set; }
     }
 }

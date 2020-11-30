@@ -13,7 +13,7 @@ namespace SMoGu.App
         public OtherQueues(TimeOptions duration)
         {
 
-            DailyDataParcer parcer = new DailyDataParcer(duration);
+            DailyDataParser parcer = new DailyDataParser(duration);
             queue = parcer.getData();
         }
 

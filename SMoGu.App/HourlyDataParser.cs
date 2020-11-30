@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
-    class HourlyDataParser : IDataParser
+    class HourlyDataParser : IDataParser<Tuple<decimal, decimal, decimal, DateTime>>
     {
+    	public Queue<Tuple<decimal, decimal, decimal, DateTime>> getData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void parceData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

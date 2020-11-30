@@ -154,8 +154,10 @@ namespace SMoGu.App
 
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
-            var investmentInfoForm = new InvestmentInfoForm(investment);
-            investmentInfoForm.Show();//открытие другого окна
+            var investmentCreationForm = new InvestmentCreationForm(investments);
+            investmentCreationForm.Show();
+            //var investmentInfoForm = new InvestmentInfoForm(investment);
+            //investmentInfoForm.Show();//открытие другого окна
             this.Hide();//закрыть текущее окно
         }
 
