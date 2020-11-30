@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace SMoGu.App
 {
-    class InvestmentInfoForm : Form
+    public class InvestmentInfoForm : Form
     {
         private static int labelHeight = 30;
         private static int textBoxHeight = 50;
