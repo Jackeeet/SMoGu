@@ -51,6 +51,11 @@ namespace SMoGu.App
                     Close();
             };
             cancelButton.Click += (sender, args) => Close();
+            /*{
+                this.Hide();
+                var mainForm = new MainForm();
+                mainForm.Show();
+            };*/
         }
 
         #region Parsers 
