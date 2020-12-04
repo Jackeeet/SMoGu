@@ -82,6 +82,20 @@ namespace SMoGu.App
             };
         }
 
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvestmentInfoForm));
+            this.SuspendLayout();
+            // 
+            // InvestmentInfoForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "InvestmentInfoForm";
+            this.ResumeLayout(false);
+
+        }
+
         private TextBox CreateTextBox(string contents)
         {
             return new TextBox

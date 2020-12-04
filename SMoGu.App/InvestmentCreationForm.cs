@@ -207,6 +207,21 @@ namespace SMoGu.App
 
         private static Panel optionsPanel, buttonPanel, currencyPanel;
         private static Button saveButton, cancelButton;
+
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvestmentCreationForm));
+            this.SuspendLayout();
+            // 
+            // InvestmentCreationForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "InvestmentCreationForm";
+            this.ResumeLayout(false);
+
+        }
+
         private static TextBox nameBox, amountBox;
         private static ComboBox timeBox;
         private static RadioButton usd, eur, cny; 

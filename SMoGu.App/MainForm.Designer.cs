@@ -31,6 +31,7 @@ namespace SMoGu.App
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
@@ -260,6 +261,7 @@ namespace SMoGu.App
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.solidGauge1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = " ";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
