@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
-    interface IDataParser
+    interface IDataParser<T>
     {
+        Queue<T> GetData();
+        void ParceData();
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
-    public class Queue<T> : IEnumerable<T>
-    {
+	public class Queue<T> : IEnumerable<T>
+	{
 		public IEnumerator<T> GetEnumerator()
 		{
 			var current = Head;
@@ -24,7 +24,7 @@ namespace SMoGu.App
 		}
 
 		public QueueItem<T> Head { get; private set; }
-		QueueItem<T> tail;
+		public QueueItem<T> Tail;
 		public int Count { get; private set; }
 
 		public bool IsEmpty { get { return Head == null; } }
@@ -32,12 +32,12 @@ namespace SMoGu.App
 		public void Enqueue(T value)
 		{
 			if (IsEmpty)
-				tail = Head = new QueueItem<T> { Value = value, Next = null };
+				Tail = Head = new QueueItem<T> { Value = value, Next = null, Previous = null };
 			else
 			{
-				var item = new QueueItem<T> { Value = value, Next = null };
-				tail.Next = item;
-				tail = item;
+				var item = new QueueItem<T> { Value = value, Next = null, Previous = Tail };
+				Tail.Next = item;
+				Tail = item;
 			}
 			Count++;
 		}
@@ -48,26 +48,17 @@ namespace SMoGu.App
 			var result = Head.Value;
 			Head = Head.Next;
 			if (Head == null)
-				tail = null;
+				Tail = null;
 			Count--;
 			return result;
 		}
-
-		public static List<Tuple<decimal, DateTime>> CreateHelper(Queue<Tuple<decimal, decimal, decimal, DateTime>> queue, CurrencyType currency)
-		{
-			switch (currency)
-			{
-				case CurrencyType.USD: return queue.Select(t => Tuple.Create(t.Item1, t.Item4)).ToList();
-				case CurrencyType.EUR: return queue.Select(t => Tuple.Create(t.Item2, t.Item4)).ToList();
-				case CurrencyType.CNY: return queue.Select(t => Tuple.Create(t.Item3, t.Item4)).ToList();
-				default: throw new ArgumentException();
-			}
-		}
 	}
 
-    public class QueueItem<T>
-    {
-        public T Value { get; set; }
-        public QueueItem<T> Next { get; set; }
-    }
+	public class QueueItem<T>
+	{
+		public T Value { get; set; }
+		public QueueItem<T> Next { get; set; }
+
+		public QueueItem<T> Previous { get; set; }
+	}
 }
