@@ -1,4 +1,4 @@
-﻿namespace SMoGu.App
+namespace SMoGu.App
 {
     partial class MainForm
     {

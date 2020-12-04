@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
-    class ChartData : ICreatable<Tuple<decimal, DateTime>>
+    public class ChartData : ICreatable<Tuple<decimal, DateTime>>
     {
         public Queue<Tuple<decimal, decimal, decimal, DateTime>> queue;
+        public readonly TimeOptions duration;
 
         public ChartData(TimeOptions duration)
         {
+            this.duration = duration;
             DailyDataParser parcer = new DailyDataParser(duration);
             queue = parcer.GetData();
         }
 
-        public List<Tuple<decimal, DateTime>> CreateNewTupleList(CurrencyType currency, TimeOptions duration)
+        public List<Tuple<decimal, DateTime>> CreateNewTupleList(CurrencyType currency)
         {
             if (duration.Equals(TimeOptions.One_Day)) throw new ArgumentException("Введен некорректный временной параметр");
             return CreateHelper(queue, currency);
