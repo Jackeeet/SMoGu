@@ -8,6 +8,6 @@ namespace SMoGu.App
 {
     interface ICreatable<T>
     {
-         List<T> CreateNewTupleList(CurrencyType currency, TimeOptions duration);
+         List<T> CreateNewTupleList(CurrencyType currency);
     }
 }
