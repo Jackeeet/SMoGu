@@ -17,12 +17,12 @@ namespace SMoGu.App
         Tuple<int, CurrencyType> valueY = new Tuple<int, CurrencyType>(0, CurrencyType.RUB);
 
         public readonly Investments investments;
-        public readonly Investment investment;
+        //public readonly Investment investment;
 
         public MainForm()
         {
-            investments = new Investments();
-            investment = new Investment(" ",1,CurrencyType.RUB,1);
+            //investments = new Investments();
+            //investment = new Investment(" ",1,CurrencyType.RUB,1);
             //заполнил данные с потолка, ибо не понимаю, как это сделать по другому
             InitializeComponent();
         }
@@ -37,9 +37,6 @@ namespace SMoGu.App
         }
         void CreateGrafic()
         {
-            var queueItems = new Queue<double>(); 
-
-            if (valueX.Item1 == 0) throw new ArgumentException();
             if (this.radioButton5.Checked)
             {
                 Axis ax = new Axis();
@@ -78,15 +75,50 @@ namespace SMoGu.App
                 this.chart1.ChartAreas[0].AxisY = ay;
             }
 
-            double left = 0, x, y;
+            var queueItems = new DailyDataParser(TimeOptions.One_Year);
+            var period = valueX.Item1;
+
+            if (valueX.Item1 == 0) throw new ArgumentException();
+
+
+            /*if (this.radioButtonOneDay.Checked)
+            {
+                if 
+                period = 1;
+            }
+            else if (radioButtonOneWeek.Checked)
+            {
+                period = 1;
+            }
+            else if (radioButtonOneMonth.Checked)
+            {
+                if()
+                period = 1;
+            }
+            else if (radioButtonThreeMonth.Checked)
+            {
+
+            }
+            else if (radioButtonHalfYear.Checked)
+            {
+
+            }
+            else if (radioButtonOneYear.Checked)
+            {
+
+            }*/
+
+            double x = period, y;
             this.chart1.Series[0].Points.Clear();
-            x = left;
- 
+            queueItems
+                .Where(index => index > queueItems.getData().Count - period)//хм
+                .Select(item => item);
+
             while (true)
             {
                 try
                 {
-                    y = queueItems.Dequeue();
+                    y = queueItems.Dequeue();//хм.2
                 }
                 catch (InvalidOperationException)
                 {
@@ -139,12 +171,12 @@ namespace SMoGu.App
 
         private void radioButtonStepYear(object sender, EventArgs e)
         {
-            valueX = new Tuple<int, string>(1, "Year");
+            valueX = new Tuple<int, string>(365, "Year");
         }
 
         private void radioButtonStepMonth(object sender, EventArgs e)
         {
-            valueX = new Tuple<int, string>(1, "Month");
+            valueX = new Tuple<int, string>(30, "Month");
         }
 
         private void radioButtonStepDay(object sender, EventArgs e)
@@ -154,8 +186,10 @@ namespace SMoGu.App
 
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
-            var investmentInfoForm = new InvestmentInfoForm(investment);
-            investmentInfoForm.Show();//открытие другого окна
+            var investmentCreationForm = new InvestmentCreationForm(investments);
+            investmentCreationForm.Show();
+            //var investmentInfoForm = new InvestmentInfoForm(investment);
+            //investmentInfoForm.Show();//открытие другого окна
             this.Hide();//закрыть текущее окно
         }
 
@@ -190,6 +224,11 @@ namespace SMoGu.App
         }
 
         private void radioButtonThreeMonth_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonOneWeek_CheckedChanged(object sender, EventArgs e)
         {
 
         }

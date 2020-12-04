@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
@@ -46,13 +46,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.TextStepX = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButtonThreeMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonOneYear = new System.Windows.Forms.RadioButton();
             this.radioButtonHalfYear = new System.Windows.Forms.RadioButton();
             this.radioButtonOneMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonOneWeek = new System.Windows.Forms.RadioButton();
             this.radioButtonOneDay = new System.Windows.Forms.RadioButton();
             this.textPeriod = new System.Windows.Forms.TextBox();
-            this.radioButtonThreeMonth = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -69,25 +69,25 @@
             // chart1
             // 
             this.chart1.BorderSkin.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(30, 81);
             this.chart1.Name = "chart1";
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.Lime;
-            series2.Name = "Series1";
-            series2.ShadowColor = System.Drawing.Color.Lime;
-            this.chart1.Series.Add(series2);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Lime;
+            series1.Name = "Series1";
+            series1.ShadowColor = System.Drawing.Color.Lime;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(513, 336);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";
-            title2.BorderWidth = 3;
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            title2.Name = "Title1";
-            title2.Text = "Grafic value";
-            this.chart1.Titles.Add(title2);
+            title1.BorderWidth = 3;
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            title1.Name = "Title1";
+            title1.Text = "Grafic value";
+            this.chart1.Titles.Add(title1);
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // button1
@@ -243,6 +243,18 @@
             this.panel2.Size = new System.Drawing.Size(319, 87);
             this.panel2.TabIndex = 16;
             // 
+            // radioButtonThreeMonth
+            // 
+            this.radioButtonThreeMonth.AutoSize = true;
+            this.radioButtonThreeMonth.Location = new System.Drawing.Point(214, 14);
+            this.radioButtonThreeMonth.Name = "radioButtonThreeMonth";
+            this.radioButtonThreeMonth.Size = new System.Drawing.Size(83, 17);
+            this.radioButtonThreeMonth.TabIndex = 7;
+            this.radioButtonThreeMonth.TabStop = true;
+            this.radioButtonThreeMonth.Text = "ThreeMonth";
+            this.radioButtonThreeMonth.UseVisualStyleBackColor = true;
+            this.radioButtonThreeMonth.CheckedChanged += new System.EventHandler(this.radioButtonThreeMonth_CheckedChanged);
+            // 
             // radioButtonOneYear
             // 
             this.radioButtonOneYear.AutoSize = true;
@@ -289,6 +301,7 @@
             this.radioButtonOneWeek.TabStop = true;
             this.radioButtonOneWeek.Text = "One week";
             this.radioButtonOneWeek.UseVisualStyleBackColor = true;
+            this.radioButtonOneWeek.CheckedChanged += new System.EventHandler(this.radioButtonOneWeek_CheckedChanged);
             // 
             // radioButtonOneDay
             // 
@@ -310,18 +323,6 @@
             this.textPeriod.TabIndex = 0;
             this.textPeriod.Text = "Выберите период";
             this.textPeriod.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // radioButtonThreeMonth
-            // 
-            this.radioButtonThreeMonth.AutoSize = true;
-            this.radioButtonThreeMonth.Location = new System.Drawing.Point(214, 14);
-            this.radioButtonThreeMonth.Name = "radioButtonThreeMonth";
-            this.radioButtonThreeMonth.Size = new System.Drawing.Size(83, 17);
-            this.radioButtonThreeMonth.TabIndex = 7;
-            this.radioButtonThreeMonth.TabStop = true;
-            this.radioButtonThreeMonth.Text = "ThreeMonth";
-            this.radioButtonThreeMonth.UseVisualStyleBackColor = true;
-            this.radioButtonThreeMonth.CheckedChanged += new System.EventHandler(this.radioButtonThreeMonth_CheckedChanged);
             // 
             // MainForm
             // 
