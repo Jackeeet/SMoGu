@@ -21,7 +21,9 @@ namespace SMoGu.App
 
         public MainForm()
         {
-            //investments = new Investments();
+            // эта штука хранит варианты инвестиций и должна быть инициализирована
+            investments = new Investments(); 
+
             //investment = new Investment(" ",1,CurrencyType.RUB,1);
             //заполнил данные с потолка, ибо не понимаю, как это сделать по другому
             InitializeComponent();
@@ -75,7 +77,7 @@ namespace SMoGu.App
                 this.chart1.ChartAreas[0].AxisY = ay;
             }
 
-            var queueItems = new DailyDataParser(TimeOptions.One_Year);
+            var queueItems = new ChartData(TimeOptions.One_Year);
             var period = valueX.Item1;
 
             if (valueX.Item1 == 0) throw new ArgumentException();
@@ -108,26 +110,26 @@ namespace SMoGu.App
 
             }*/
 
-            double x = period, y;
-            this.chart1.Series[0].Points.Clear();
-            queueItems
-                .Where(index => index > queueItems.getData().Count - period)//хм
-                .Select(item => item);
+            //double x = period, y;
+            //this.chart1.Series[0].Points.Clear();
+            //queueItems
+            //    .Where(index => index > queueItems.getData().Count - period)//хм
+            //    .Select(item => item);
 
-            while (true)
-            {
-                try
-                {
-                    y = queueItems.Dequeue();//хм.2
-                }
-                catch (InvalidOperationException)
-                {
-                    break;
-                }
+            //while (true)
+            //{
+            //    try
+            //    {
+            //        y = queueItems.Dequeue();//хм.2
+            //    }
+            //    catch (InvalidOperationException)
+            //    {
+            //        break;
+            //    }
 
-                this.chart1.Series[0].Points.AddXY(x, y);
-                x += valueX.Item1;
-            }
+            //    this.chart1.Series[0].Points.AddXY(x, y);
+            //    x += valueX.Item1;
+            //}
         }
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
@@ -187,10 +189,10 @@ namespace SMoGu.App
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
             var investmentCreationForm = new InvestmentCreationForm(investments);
-            investmentCreationForm.Show();
-            //var investmentInfoForm = new InvestmentInfoForm(investment);
-            //investmentInfoForm.Show();//открытие другого окна
-            this.Hide();//закрыть текущее окно
+            investmentCreationForm.Show(); // открытие другого окна
+            Hide(); // закрыть текущее окно
+            // возвращение главного окна при закрытии investmentCreationForm
+            investmentCreationForm.FormClosing += (sender2, args) => Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
