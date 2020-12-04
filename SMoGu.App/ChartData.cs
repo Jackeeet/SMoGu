@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
-    class ChartData : ICreatable<Tuple<decimal, DateTime>>
+    public class ChartData : ICreatable<Tuple<decimal, DateTime>>
     {
         public Queue<Tuple<decimal, decimal, decimal, DateTime>> queue;
         public readonly TimeOptions duration;

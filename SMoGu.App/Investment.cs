@@ -11,12 +11,13 @@ namespace SMoGu.App
         public readonly decimal Amount; // инвестируемая сумма
         public readonly CurrencyType Currency; // валюта
         public readonly int PredictionPeriod; // период прогнозирования изменения курса в днях
+        public readonly List<Tuple<decimal, DateTime>> ValuesOverTime; // спрогнозированные данные
 
         public double RiskEstimate { get; private set; } // предполагаемые риски
-        public double ProceedsEstimate { get; private set; } // предполагаемая прибыль (за сколько можно будет продать)
-        public double ProfitPercentage { get; private set; } // процент доходности
+        public decimal ProceedsEstimate { get; private set; } // предполагаемая прибыль (за сколько можно будет продать)
+        public double ProfitPercentage { get; private set; } // процент доходности (эта штука еще называется "относительная величина прибыли")
 
-        public Investment(string name, decimal amount, CurrencyType currency, int period)
+        public Investment(string name, decimal amount, CurrencyType currency, int period, PredictionCalculator calc)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException();
@@ -26,6 +27,7 @@ namespace SMoGu.App
             Amount = amount;
             Currency = currency;
             PredictionPeriod = period;
+            ValuesOverTime = calc.PredictCurrencyValues(period, currency);
 
             RiskEstimate = CalculateRiskEstimate();
             ProceedsEstimate = CalculateProceedsEstimate();
@@ -38,10 +40,10 @@ namespace SMoGu.App
             return 0.0;
         }
 
-        private double CalculateProceedsEstimate()
+        private decimal CalculateProceedsEstimate()
         {
-            // temporary
-            return 0.0;
+            // прибыль = сумма продажи - сумма покупки
+            return ValuesOverTime[ValuesOverTime.Count - 1].Item1 - ValuesOverTime[0].Item1;
         }
 
         private double CalculateProfitPercentage()
@@ -49,7 +51,7 @@ namespace SMoGu.App
             // формула отсюда
             // https://activeinvestor.pro/kak-schitat-dohodnost-investitsij-formuly-rascheta/
             // это первый попавшийся сайт на самом деле, я не шарю
-            return ProceedsEstimate / (double)Amount * 100;
+            return (double)ProceedsEstimate / (double)Amount * 100;
         }
 
         public override bool Equals(object obj)

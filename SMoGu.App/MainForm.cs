@@ -16,8 +16,8 @@ namespace SMoGu.App
         Tuple<int, string> valueX = new Tuple<int, string>(0, "");
         Tuple<int, CurrencyType> valueY = new Tuple<int, CurrencyType>(0, CurrencyType.RUB);
 
+        public ChartData queueItems { get; private set; }
         public readonly Investments investments;
-        //public readonly Investment investment;
 
         public MainForm()
         {
@@ -78,7 +78,7 @@ namespace SMoGu.App
             }
 
             var queue = new ChartData(TimeOptions.One_Year);//исправить
-            var queueItems = queue.CreateNewTupleList(valueY.Item2, TimeOptions.One_Year);//исправить
+            var queueItems = queue.CreateNewTupleList(valueY.Item2/*, TimeOptions.One_Year*/);//исправить
             var period = valueX.Item1;
 
             if (valueX.Item1 == 0) throw new ArgumentException();
