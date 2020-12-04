@@ -81,7 +81,6 @@ namespace SMoGu.App
             var queueItems = queue.CreateNewTupleList(valueY.Item2/*, TimeOptions.One_Year*/);//исправить
             var period = valueX.Item1;
 
-            if (valueX.Item1 == 0) throw new ArgumentException();
 
 
             /*if (this.radioButtonOneDay.Checked)
