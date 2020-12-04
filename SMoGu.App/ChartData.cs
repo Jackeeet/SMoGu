@@ -18,8 +18,7 @@ namespace SMoGu.App
 
         public List<Tuple<decimal, DateTime>> CreateNewTupleList(CurrencyType currency, TimeOptions duration)
         {
-            if (duration.Equals(TimeOptions.One_Day)) throw new ArgumentException("Ты че дурак бл*ть?! Написано же другие очереди, " +
-                "нет надо изъеб*уться бл*ть, показать, что тебе все дозволено, мудила ты редкостная");
+            if (duration.Equals(TimeOptions.One_Day)) throw new ArgumentException("Введен некорректный временной параметр");
             return CreateHelper(queue, currency);
         }
 

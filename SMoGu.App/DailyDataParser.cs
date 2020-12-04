@@ -54,7 +54,7 @@ namespace SMoGu.App
                         start = today.AddYears(-1);
                         break;
                     }
-                default: throw new InvalidOperationException("чет не то попало в блок switch, надо бы проверить что за дрянь сюда залезла");
+                default: throw new InvalidOperationException("Некорректный параметр из TimeOptions");
             }
             startDate = start.ToString().Split(' ')[0];
             finalDate = final.ToString().Split(' ')[0];
