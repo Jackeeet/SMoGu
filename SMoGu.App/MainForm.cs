@@ -77,7 +77,8 @@ namespace SMoGu.App
                 this.chart1.ChartAreas[0].AxisY = ay;
             }
 
-            var queueItems = new ChartData(TimeOptions.One_Year);
+            var queue = new ChartData(TimeOptions.One_Year);//исправить
+            var queueItems = queue.CreateNewTupleList(valueY.Item2, TimeOptions.One_Year);//исправить
             var period = valueX.Item1;
 
             if (valueX.Item1 == 0) throw new ArgumentException();
@@ -110,26 +111,24 @@ namespace SMoGu.App
 
             }*/
 
-            //double x = period, y;
-            //this.chart1.Series[0].Points.Clear();
-            //queueItems
-            //    .Where(index => index > queueItems.getData().Count - period)//хм
-            //    .Select(item => item);
+            double x = period;
+            decimal y;
+            this.chart1.Series[0].Points.Clear();
 
-            //while (true)
-            //{
-            //    try
-            //    {
-            //        y = queueItems.Dequeue();//хм.2
-            //    }
-            //    catch (InvalidOperationException)
-            //    {
-            //        break;
-            //    }
+            foreach(var element in queueItems)
+            {
+                try
+                {
+                    y = element.Item1;
+                }
+                catch (InvalidOperationException)
+                {
+                    break;
+                }
 
-            //    this.chart1.Series[0].Points.AddXY(x, y);
-            //    x += valueX.Item1;
-            //}
+                this.chart1.Series[0].Points.AddXY(x, y);
+                x += valueX.Item1;
+            }
         }
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
