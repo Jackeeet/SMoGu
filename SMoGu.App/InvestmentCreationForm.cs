@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Diagnostics;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace SMoGu.App
 {
@@ -14,12 +12,6 @@ namespace SMoGu.App
     {
         public InvestmentCreationForm(Investments invs)
         {
-            ClientSize = new Size(width, 300);
-            Text = "Создание инвестиции";
-            BackColor = Color.AliceBlue;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-
             optionsPanel = new Panel
             {
                 Location = new Point(0, 0),
@@ -39,23 +31,74 @@ namespace SMoGu.App
 
             saveButton.Click += (sender, args) =>
             {
-                var name = nameBox.Text;
-                var amount = decimal.Parse(amountBox.Text, CultureInfo.InvariantCulture);
-                var selectedCurrButton = currencyPanel.Controls.OfType<RadioButton>().FirstOrDefault(b => b.Checked);
-                var curr = DetermineCurrency(selectedCurrButton);
-                var selectedTime = timeBox.SelectedItem.ToString();
-                var period = DeterminePeriod(selectedTime);
-                invs.AddInvestment(name, amount, curr, period);
-                var dialog = MessageBox.Show("Вариант инвестиции сохранен.");
-                if (dialog == DialogResult.OK)
-                    Close();
+                // проверка того, все ли поля формы были заполнены
+                if (!AllFieldsAreFilled())
+                {
+                    MessageBox.Show("Заполните все поля формы");
+                }
+                // создание варианта инвестиции
+                else
+                {
+                    // проверка соответствия ввода маске 
+                    // максимальное допустимое значение - 9999999.99
+                    // при вводе более 2 знаков после запятой значение округляется до 2 знаков
+                    if (amountRegex.IsMatch(amountBox.Text))
+                    {
+                        var amount = new decimal(Math.Round(double.Parse(amountBox.Text, CultureInfo.InvariantCulture), 2));
+                        if (amount < new decimal(0.01))
+                        {
+                            MessageBox.Show("Сумма должна быть ненулевой");
+                        }
+                        else
+                        {
+                            var name = nameBox.Text;
+                            var selectedCurrButton = currencyPanel.Controls.OfType<RadioButton>().FirstOrDefault(b => b.Checked);
+                            var curr = DetermineCurrency(selectedCurrButton);
+                            var selectedTime = timeBox.SelectedItem.ToString();
+                            var period = DeterminePeriod(selectedTime);
+
+                            invs.AddInvestment(name, amount, curr, period);
+                            var dialog = MessageBox.Show("Вариант инвестиции сохранен.");
+                            if (dialog == DialogResult.OK)
+                                Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введенная сумма не является числом или превышает допустимую сумму");
+                    }
+                }
             };
             cancelButton.Click += (sender, args) => Close();
-            /*{
-                this.Hide();
-                var mainForm = new MainForm();
-                mainForm.Show();
-            };*/
+        }
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            ClientSize = new Size(width, 300);
+            Text = "Создание инвестиции";
+            BackColor = Color.AliceBlue;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            toolTip = new ToolTip
+            {
+                AutoPopDelay = 3000,
+                InitialDelay = 1000,
+                ReshowDelay = 500,
+            };
+
+            toolTip.SetToolTip(nameBox, "Название варианта инвестиции");
+            toolTip.SetToolTip(amountBox, "Предполагаемая сумма инвестиции; значение в пределах [0,01; 9999999,99]");
+            toolTip.SetToolTip(timeBox, "Период, в течение которого будет спрогнозировано изменение курса");
+            toolTip.SetToolTip(saveButton, "Сохранить созданный вариант");
+            toolTip.SetToolTip(cancelButton, "Отменить создание варианта");
+        }
+
+        private bool AllFieldsAreFilled()
+        {
+            return !string.IsNullOrEmpty(nameBox.Text) &&
+                   !string.IsNullOrEmpty(amountBox.Text) &&
+                   (usd.Checked || eur.Checked || cny.Checked) &&
+                   !(timeBox.SelectedItem == null);
         }
 
         #region Parsers 
@@ -142,7 +185,7 @@ namespace SMoGu.App
                 DropDownStyle = ComboBoxStyle.DropDownList
             };
             InitialiseTimeBox();
-
+           
             optionsPanel.Controls.Add(CreateOptionsLabel("Введите название инвестиции:", new Point(0, 0)));
             optionsPanel.Controls.Add(nameBox);
             optionsPanel.Controls.Add(CreateOptionsLabel("Введите сумму инвестиции:", new Point(0, 60)));
@@ -224,7 +267,10 @@ namespace SMoGu.App
 
         private static TextBox nameBox, amountBox;
         private static ComboBox timeBox;
-        private static RadioButton usd, eur, cny; 
+        private static ToolTip toolTip;
+        private static RadioButton usd, eur, cny;
+
+        private static Regex amountRegex = new Regex("^\\d{1,7}([,\\.]\\d{1,2})?");
         #endregion
     }
 }
