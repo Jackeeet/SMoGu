@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace SMoGu.App
 {
@@ -19,15 +17,19 @@ namespace SMoGu.App
 
         public Investment(string name, decimal amount, CurrencyType currency, int period, PredictionCalculator calc)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException();
             InvestmentName = name;
-            if (amount < new decimal(0.01))
-                throw new ArgumentException();
             Amount = amount;
             Currency = currency;
             PredictionPeriod = period;
-            ValuesOverTime = calc.PredictCurrencyValues(period, currency);
+
+            try
+            {
+                ValuesOverTime = calc.PredictCurrencyValues(period, currency);
+            }
+            catch
+            {
+
+            }
 
             RiskEstimate = CalculateRiskEstimate();
             ProceedsEstimate = CalculateProceedsEstimate();
