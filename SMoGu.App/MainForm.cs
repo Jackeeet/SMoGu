@@ -18,6 +18,7 @@ namespace SMoGu.App
         public MainForm()
         {
             // эта штука хранит варианты инвестиций и должна быть инициализирована
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             investments = new Investments();
             InitializeComponent();
         }
@@ -54,7 +55,9 @@ namespace SMoGu.App
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
             //CreateHelper()
-            CreateGrafic();
+            if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked)
+                CreateGrafic();
+            else MessageBox.Show("Перед построением графика нужно выбрать валюту");
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {

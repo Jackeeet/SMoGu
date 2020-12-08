@@ -32,7 +32,6 @@ namespace SMoGu.App
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.solidGauge1 = new LiveCharts.WinForms.SolidGauge();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -51,14 +50,6 @@ namespace SMoGu.App
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // solidGauge1
-            // 
-            this.solidGauge1.Location = new System.Drawing.Point(752, 430);
-            this.solidGauge1.Name = "solidGauge1";
-            this.solidGauge1.Size = new System.Drawing.Size(200, 100);
-            this.solidGauge1.TabIndex = 1;
-            this.solidGauge1.Text = "solidGauge1";
             // 
             // chart1
             // 
@@ -260,7 +251,6 @@ namespace SMoGu.App
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);
-            this.Controls.Add(this.solidGauge1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = " ";
@@ -273,7 +263,6 @@ namespace SMoGu.App
         }
 
         #endregion
-        private LiveCharts.WinForms.SolidGauge solidGauge1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
