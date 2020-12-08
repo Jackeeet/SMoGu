@@ -6,7 +6,8 @@ namespace SMoGu.App
 {
     public class Investments
     {
-        private List<Investment> invs; //это просто контейнер для всех инвестиций
+        //изменил доступ на публичный
+        public List<Investment> invs; //это просто контейнер для всех инвестиций
         public List<Investment> bestInvs { get; private set; } // это список, который мы получаем после анализа наилучших вариантов
 
         public PredictionCalculator calc { get; private set; }

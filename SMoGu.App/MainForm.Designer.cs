@@ -47,6 +47,7 @@ namespace SMoGu.App
             this.radioButtonOneMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonOneWeek = new System.Windows.Forms.RadioButton();
             this.textPeriod = new System.Windows.Forms.TextBox();
+            this.listBoxInvestments = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -237,11 +238,22 @@ namespace SMoGu.App
             this.textPeriod.Text = "Select period";
             this.textPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // listBoxInvestments
+            // 
+            this.listBoxInvestments.FormattingEnabled = true;
+            this.listBoxInvestments.Items.AddRange(new object[] {
+            "\"У вас пока нет сохраненных инвестиций\""});
+            this.listBoxInvestments.Location = new System.Drawing.Point(580, 145);
+            this.listBoxInvestments.Name = "listBoxInvestments";
+            this.listBoxInvestments.Size = new System.Drawing.Size(123, 251);
+            this.listBoxInvestments.TabIndex = 17;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 515);
+            this.ClientSize = new System.Drawing.Size(750, 515);
+            this.Controls.Add(this.listBoxInvestments);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
@@ -278,6 +290,7 @@ namespace SMoGu.App
         private System.Windows.Forms.RadioButton radioButtonOneWeek;
         private System.Windows.Forms.RadioButton radioButtonOneYear;
         private System.Windows.Forms.RadioButton radioButtonThreeMonth;
+        private System.Windows.Forms.ListBox listBoxInvestments;
     }
 }
 

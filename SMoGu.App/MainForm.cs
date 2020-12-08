@@ -17,9 +17,18 @@ namespace SMoGu.App
         public readonly Investments investments;
         public MainForm()
         {
-            // эта штука хранит варианты инвестиций и должна быть инициализирована
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            // эта штука хранит варианты инвестиций и должна быть инициализирована
             investments = new Investments();
+
+            /*if (investments.invs.Count == 0)
+                listBoxInvestments.Items.Add("У вас пока нет сохраненных инвестиций");
+            else
+            {
+                listBoxInvestments.Items.Clear();
+                listBoxInvestments.Items.Add(investments.invs);
+            }*/
+
             InitializeComponent();
         }
         public void CreateGrafic()
