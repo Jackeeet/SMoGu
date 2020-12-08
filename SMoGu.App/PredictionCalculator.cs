@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
@@ -21,7 +19,7 @@ namespace SMoGu.App
         {
             var data = RawData.CreateNewTupleList(currency);
             var result = new List<Tuple<decimal, DateTime>>();
-            result.Add(data[data.Count-1]);
+            result.Add(data[data.Count - 1]);
 
             // количество параметров, которые вычисляются для авторегрессии
             var paramsCount = data.Count / 2;
@@ -88,33 +86,43 @@ namespace SMoGu.App
         // куча вспомогательных методов
         private static double[] GetAnswer(double[][] augmented, int varCount)
         {
-            CheckIfSolutionExists(augmented, varCount);
-            var rowCount = augmented.Length;
-            var markedRows = new bool[rowCount];
             var answer = new double[varCount];
-            for (int col = 0; col < varCount; col++)
+            if (SolutionExists(augmented, varCount))
             {
-                int row = 0;
-                for (; row < rowCount; row++)
-                    if (augmented[row][col] != 0 && !markedRows[row])
-                    {
-                        markedRows[row] = true;
-                        answer[col] = augmented[row].Last() / augmented[row][col];
-                        break;
-                    }
+                var rowCount = augmented.Length;
+                var markedRows = new bool[rowCount];
+
+                for (int col = 0; col < varCount; col++)
+                {
+                    int row = 0;
+                    for (; row < rowCount; row++)
+                        if (augmented[row][col] != 0 && !markedRows[row])
+                        {
+                            markedRows[row] = true;
+                            answer[col] = augmented[row].Last() / augmented[row][col];
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                var baseCoef = 0.5;
+                for (int i = 0; i < varCount; i++)
+                    answer[i] = Math.Pow(baseCoef, i + 1);
             }
             return answer;
         }
 
-        private static void CheckIfSolutionExists(double[][] augmented, int rowLength)
+        private static bool SolutionExists(double[][] augmented, int rowLength)
         {
             foreach (var a in augmented)
             {
                 var divisors = a.Take(rowLength)
                                 .Where(ai => ai != 0);
                 if (divisors.Count() == 0 && a.Last() != 0)
-                    throw new ArgumentException("No solution");
+                    return false;
             }
+            return true;
         }
 
         private static void ModifyMatrix(double[][] augmented)
@@ -148,8 +156,6 @@ namespace SMoGu.App
             return modified.Zip(newModifying, (item1, item2) => item1 + item2)
                            .ToArray();
         }
-
-
     }
 }
 
