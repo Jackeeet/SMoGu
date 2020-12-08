@@ -151,6 +151,7 @@ namespace SMoGu.App
 
             // подключение сервиса и запрос данных о курсе валют
             var dailyInfo = new cbrDailyInfo.DailyInfo();
+            // GetCursDynamic - метод веб-сервиса ЦБР для получения данных о динамике курса валют
             var usdRows = dailyInfo.GetCursDynamic(DateTime.Parse(startDate), DateTime.Parse(finalDate), "R01235").Tables[0].Rows;
             var eurRows = dailyInfo.GetCursDynamic(DateTime.Parse(startDate), DateTime.Parse(finalDate), "R01239").Tables[0].Rows;
             var cnyRows = dailyInfo.GetCursDynamic(DateTime.Parse(startDate), DateTime.Parse(finalDate), "R01375").Tables[0].Rows;
@@ -165,12 +166,7 @@ namespace SMoGu.App
         }
 
         // парсинг с проверкой на номинал > 1 (в основном для юаня)
-        private decimal ParceCBRValues(DataRow row)
-        {
-            var nominal = int.Parse(row.ItemArray[2].ToString());
-            var value = decimal.Parse(row.ItemArray[3].ToString());
-            return nominal == 1 ? value : value / nominal;
-        }
+        private decimal ParceCBRValues(DataRow row) => new decimal(double.Parse(row.ItemArray[3].ToString()) / double.Parse(row.ItemArray[2].ToString()));
 
         // метод для сбора данных в случае, если веб-сервис недоступен
         private void GetFallBackData()
