@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,112 +11,59 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс главной формы
+    /// </summary>
     public partial class MainForm : Form
     {
-        Tuple<int, string> valueX = new Tuple<int, string>(0, "");
-        Tuple<int, CurrencyType> valueY = new Tuple<int, CurrencyType>(0, CurrencyType.RUB);
-
+        /// <summary>
+        /// Поле, хранящая выбранную валюту
+        /// </summary>
+        public CurrencyType currency;
+        /// <summary>
+        /// Поле, хранящее все созданные инвестиции
+        /// </summary>
         public readonly Investments investments;
-        //public readonly Investment investment;
-
+        /// <summary>
+        /// Конструктор главной формы
+        /// </summary>
         public MainForm()
-        {
-            // эта штука хранит варианты инвестиций и должна быть инициализирована
-            investments = new Investments(); 
-
-            //investment = new Investment(" ",1,CurrencyType.RUB,1);
-            //заполнил данные с потолка, ибо не понимаю, как это сделать по другому
+        {   
             InitializeComponent();
+
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            // эта штука хранит варианты инвестиций и должна быть инициализирована
+            investments = new Investments();
+
+            buttonForCreateGrafic.Enabled = false;//отключение кнопки создания графика
+            buttonForCreateInvestment.Enabled = false;//отключение кнопки создания инвестиции
+
+            /*if (investments.invs.Count == 0)
+                listBoxInvestments.Items.Add("У вас пока нет сохраненных инвестиций");*/
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Метод для создания графика
+        /// </summary>
+        public void CreateGrafic()
         {
-        }
+            var queue = new ChartData(WhatPeriodOn());
+            var queueItems = queue.CreateNewTupleList(currency);//получаем лист данных о выбранной валюте
+            
+            investments.SetCalc(queue);//сеанс предсказывания
+            
+            chart1.ChartAreas[0].AxisX.Interval = queueItems.Count/10;//интервал отметок по оси X
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = -60;//отметка интервала отображается под углом
 
-        private void chart1_Click(object sender, EventArgs e)
-        {
+            var ax = new Axis();
+            ax.Title = WhatPeriodOn().ToString();
+            chart1.ChartAreas[0].AxisX = ax;//название оси в соотвествии с периодом
 
-        }
-        void CreateGrafic()
-        {
-            if (this.radioButton5.Checked)
+            chart1.Series[0].Points.Clear();//отчищаем график от предыдущего
+            foreach (var element in queueItems)
             {
-                Axis ax = new Axis();
-                ax.Title = valueX.Item2.ToString();
-                this.chart1.ChartAreas[0].AxisX = ax;
-            }
-            else if (this.radioButton6.Checked)
-            {
-                Axis ax = new Axis();
-                ax.Title = valueX.Item2.ToString();
-                this.chart1.ChartAreas[0].AxisX = ax;
-            }
-            else if (this.radioButton7.Checked)
-            {
-                Axis ax = new Axis();
-                ax.Title = valueX.Item2.ToString();
-                this.chart1.ChartAreas[0].AxisX = ax;
-            }
-
-            if (this.radioButton1.Checked)
-            {
-                Axis ay = new Axis();
-                ay.Title = valueY.Item2.ToString();
-                this.chart1.ChartAreas[0].AxisY = ay;
-            }
-            else if (this.radioButton2.Checked)
-            {
-                Axis ay = new Axis();
-                ay.Title = valueY.Item2.ToString();
-                this.chart1.ChartAreas[0].AxisY = ay;
-            }
-            else if (this.radioButton3.Checked)
-            {
-                Axis ay = new Axis();
-                ay.Title = valueY.Item2.ToString();
-                this.chart1.ChartAreas[0].AxisY = ay;
-            }
-
-            var queue = new ChartData(TimeOptions.One_Year);//исправить
-            var queueItems = queue.CreateNewTupleList(valueY.Item2);//исправить
-            var period = valueX.Item1;
-
-            if (valueX.Item1 == 0) throw new ArgumentException();
-
-
-            /*if (this.radioButtonOneDay.Checked)
-            {
-                if 
-                period = 1;
-            }
-            else if (radioButtonOneWeek.Checked)
-            {
-                period = 1;
-            }
-            else if (radioButtonOneMonth.Checked)
-            {
-                if()
-                period = 1;
-            }
-            else if (radioButtonThreeMonth.Checked)
-            {
-
-            }
-            else if (radioButtonHalfYear.Checked)
-            {
-
-            }
-            else if (radioButtonOneYear.Checked)
-            {
-
-            }*/
-
-            double x = period;
-            decimal y;
-            this.chart1.Series[0].Points.Clear();
-
-            foreach(var element in queueItems)
-            {
+                decimal y;
+                var x = element.Item2.ToString("d");//форматирование времени по типу ДД.ММ.ГГГГ
                 try
                 {
                     y = element.Item1;
@@ -125,113 +72,171 @@ namespace SMoGu.App
                 {
                     break;
                 }
-
-                this.chart1.Series[0].Points.AddXY(x, y);
-                x += valueX.Item1;
+                chart1.Series[0].Points.AddXY(x, y);//рисуем точку
             }
         }
+        /// <summary>
+        /// Метод отслеживания однократного нажатия на кнопку Создания графика
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие однократного нажатия</param>
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
             //CreateHelper()
             CreateGrafic();
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку USD
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие нажатия</param>
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            valueY = new Tuple<int, CurrencyType>(0, CurrencyType.USD);
+            currency = CurrencyType.USD;
+            OnOffBtnsCreateGrafAndInvs();
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку EUR
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие нажатия</param>
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            valueY = new Tuple<int, CurrencyType>(0, CurrencyType.EUR);
+            currency = CurrencyType.EUR;
+            OnOffBtnsCreateGrafAndInvs();
         }
-           
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку CNY
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие нажатия</param>
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            valueY = new Tuple<int, CurrencyType>(0, CurrencyType.CNY);
+            currency = CurrencyType.CNY;
+            OnOffBtnsCreateGrafAndInvs();
         }
-        void SaveInDocement()
+        /// <summary>
+        /// Метод, который сохраняет инвестицию на коипьютер
+        /// </summary>
+        private void SaveInDocement()
         {
-
+            //TODO
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на кнопку Сохранения
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void buttonSave(object sender, EventArgs e)
         {
             SaveInDocement();
         }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void radioButtonStepYear(object sender, EventArgs e)
-        {
-            valueX = new Tuple<int, string>(365, "Year");
-        }
-
-        private void radioButtonStepMonth(object sender, EventArgs e)
-        {
-            valueX = new Tuple<int, string>(30, "Month");
-        }
-
-        private void radioButtonStepDay(object sender, EventArgs e)
-        {
-            valueX = new Tuple<int, string>(1, "Day");
-        }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на кнопку Создания инвестции
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
-            var investmentCreationForm = new InvestmentCreationForm(investments);
+            var investmentCreationForm = new InvestmentCreationForm(investments);//создание формы создания инвестиции
             investmentCreationForm.Show(); // открытие другого окна
-            Hide(); // закрыть текущее окно
+            this.Hide(); // закрыть текущее окно
             // возвращение главного окна при закрытии investmentCreationForm
-            investmentCreationForm.FormClosing += (sender2, args) => Show();
+            investmentCreationForm.FormClosing += (sender2, args) =>
+            {
+                this.Show();
+                //this.listBoxInvestments.DataSource = this.investments.invs;
+            };
         }
-
-        private void button4_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Метод отслеживания нажатия на кнопку Информация и инвестиции
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
+        private void buttonTrackInvestment_Click(object sender, EventArgs e)
         {
-
+            //TODO
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButtonOneDay_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку Half Year
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void radioButtonHalfYear_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку One Month
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void radioButtonOneMonth_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку One Year
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void radioButtonOneYear_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку Three Month
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void radioButtonThreeMonth_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
-
+        /// <summary>
+        /// Метод отслеживания нажатия на радиокнопку One Week
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления</param>
+        /// <param name="e">Событие одноератного нажатия</param>
         private void radioButtonOneWeek_CheckedChanged(object sender, EventArgs e)
         {
+            OnOffBtnsCreateGrafAndInvs();
+        }
+        /// <summary>
+        /// Метод, который определяет какой период выбран
+        /// </summary>
+        /// <returns></returns>
+        private TimeOptions WhatPeriodOn()
+        {
+            if (radioButtonHalfYear.Checked)
+                return TimeOptions.Half_Year;
+            else if (radioButtonOneMonth.Checked)
+                return TimeOptions.One_Month;
+            else if (radioButtonOneYear.Checked)
+                return TimeOptions.One_Year;
+            else if (radioButtonThreeMonth.Checked)
+                return TimeOptions.Three_Months;
+            else if (radioButtonOneWeek.Checked)
+                return TimeOptions.One_Week;
+            else throw new ArgumentException("Ни одна из кнопок периода времени не была выбрана");
+        }
+        /// <summary>
+        /// Метод, который активирует кнопки Создания Графика и Создания Инвестциии
+        /// </summary>
+        private void OnOffBtnsCreateGrafAndInvs() {
+            if ((radioButton1.Checked || radioButton2.Checked || radioButton3.Checked) &&
+                    (radioButtonOneWeek.Checked || radioButtonThreeMonth.Checked || radioButtonOneYear.Checked
+                    || radioButtonOneMonth.Checked || radioButtonHalfYear.Checked))
+            {
+                buttonForCreateGrafic.Enabled = true;//включение кнопки создания графика
+                buttonForCreateInvestment.Enabled = true;//включение кнопки создания инвестиции
+            }
+        }
 
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            //e.
+            //listBoxInvestments.Items
         }
     }
 }
