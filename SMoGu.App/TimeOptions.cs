@@ -1,5 +1,9 @@
 ﻿namespace SMoGu.App
 {
+    /// <summary>
+    /// Список времменных интервалов для построения основного 
+    /// графика и графика прогнозирования
+    /// </summary>
     public enum TimeOptions
     {
         One_Day,
