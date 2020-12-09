@@ -9,7 +9,7 @@ namespace SMoGu.App
     /// <summary>
     /// класс данных и методов для построения графика
     /// </summary>
-    class ChartData : ICreatable<Tuple<decimal, DateTime>>
+    public class ChartData : ICreatable<Tuple<decimal, DateTime>>
     {
         /// <summary>
         /// очередь, из которой берутся данные для построения графика
