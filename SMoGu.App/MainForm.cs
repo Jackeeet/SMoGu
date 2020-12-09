@@ -28,14 +28,7 @@ namespace SMoGu.App
             buttonForCreateInvestment.Enabled = false;//отключение кнопки создания инвестиции
 
             /*if (investments.invs.Count == 0)
-                listBoxInvestments.Items.Add("У вас пока нет сохраненных инвестиций");
-            else
-            {
-                listBoxInvestments.Items.Clear();
-                listBoxInvestments.Items.Add(investments.invs);
-            }*/
-
-
+                listBoxInvestments.Items.Add("У вас пока нет сохраненных инвестиций");*/
         }
 
         public void CreateGrafic()
@@ -100,9 +93,13 @@ namespace SMoGu.App
         {
             var investmentCreationForm = new InvestmentCreationForm(investments);
             investmentCreationForm.Show(); // открытие другого окна
-            Hide(); // закрыть текущее окно
+            this.Hide(); // закрыть текущее окно
             // возвращение главного окна при закрытии investmentCreationForm
-            investmentCreationForm.FormClosing += (sender2, args) => Show();
+            investmentCreationForm.FormClosing += (sender2, args) =>
+            {
+                this.Show();
+                this.listBoxInvestments.DataSource = this.investments.invs;
+            };
         }
         private void buttonTrackInvestment_Click(object sender, EventArgs e)
         {

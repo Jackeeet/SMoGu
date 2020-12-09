@@ -28,6 +28,7 @@ namespace SMoGu.App
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
@@ -48,8 +49,10 @@ namespace SMoGu.App
             this.radioButtonOneWeek = new System.Windows.Forms.RadioButton();
             this.textPeriod = new System.Windows.Forms.TextBox();
             this.listBoxInvestments = new System.Windows.Forms.ListBox();
+            this.investmentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.investmentsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // chart1
@@ -237,13 +240,16 @@ namespace SMoGu.App
             // 
             // listBoxInvestments
             // 
+            this.listBoxInvestments.DataSource = this.investmentsBindingSource;
             this.listBoxInvestments.FormattingEnabled = true;
-            this.listBoxInvestments.Items.AddRange(new object[] {
-            "\"У вас пока нет сохраненных инвестиций\""});
             this.listBoxInvestments.Location = new System.Drawing.Point(580, 145);
             this.listBoxInvestments.Name = "listBoxInvestments";
             this.listBoxInvestments.Size = new System.Drawing.Size(123, 251);
             this.listBoxInvestments.TabIndex = 17;
+            // 
+            // investmentsBindingSource
+            // 
+            this.investmentsBindingSource.DataSource = typeof(SMoGu.App.Investments);
             // 
             // MainForm
             // 
@@ -266,6 +272,7 @@ namespace SMoGu.App
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.investmentsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,6 +295,7 @@ namespace SMoGu.App
         private System.Windows.Forms.RadioButton radioButtonOneYear;
         private System.Windows.Forms.RadioButton radioButtonThreeMonth;
         private System.Windows.Forms.ListBox listBoxInvestments;
+        private System.Windows.Forms.BindingSource investmentsBindingSource;
     }
 }
 
