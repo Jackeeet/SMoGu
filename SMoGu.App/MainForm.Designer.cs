@@ -33,12 +33,12 @@ namespace SMoGu.App
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonForCreateGrafic = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonForCreateInvestment = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radioButtonThreeMonth = new System.Windows.Forms.RadioButton();
@@ -75,16 +75,16 @@ namespace SMoGu.App
             title1.Text = "Grafic value";
             this.chart1.Titles.Add(title1);
             // 
-            // button1
+            // buttonForCreateGrafic
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(336, 32);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 29);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Create grafic ";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonCreateGrafic);
+            this.buttonForCreateGrafic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForCreateGrafic.Location = new System.Drawing.Point(336, 32);
+            this.buttonForCreateGrafic.Name = "buttonForCreateGrafic";
+            this.buttonForCreateGrafic.Size = new System.Drawing.Size(103, 29);
+            this.buttonForCreateGrafic.TabIndex = 3;
+            this.buttonForCreateGrafic.Text = "Create grafic ";
+            this.buttonForCreateGrafic.UseVisualStyleBackColor = true;
+            this.buttonForCreateGrafic.Click += new System.EventHandler(this.buttonCreateGrafic);
             // 
             // button2
             // 
@@ -104,7 +104,6 @@ namespace SMoGu.App
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(76, 17);
             this.radioButton1.TabIndex = 5;
-            this.radioButton1.TabStop = true;
             this.radioButton1.Text = "USD/RUB";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
@@ -116,7 +115,6 @@ namespace SMoGu.App
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(76, 17);
             this.radioButton2.TabIndex = 6;
-            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "EUR/RUB";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
@@ -128,21 +126,20 @@ namespace SMoGu.App
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(75, 17);
             this.radioButton3.TabIndex = 7;
-            this.radioButton3.TabStop = true;
             this.radioButton3.Text = "CNY/RUB";
             this.radioButton3.UseVisualStyleBackColor = true;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
-            // button3
+            // buttonForCreateInvestment
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(572, 32);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(158, 29);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Create investment ";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.buttonCreateInvesment);
+            this.buttonForCreateInvestment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForCreateInvestment.Location = new System.Drawing.Point(572, 32);
+            this.buttonForCreateInvestment.Name = "buttonForCreateInvestment";
+            this.buttonForCreateInvestment.Size = new System.Drawing.Size(158, 29);
+            this.buttonForCreateInvestment.TabIndex = 8;
+            this.buttonForCreateInvestment.Text = "Create investment ";
+            this.buttonForCreateInvestment.UseVisualStyleBackColor = true;
+            this.buttonForCreateInvestment.Click += new System.EventHandler(this.buttonCreateInvesment);
             // 
             // button4
             // 
@@ -259,9 +256,9 @@ namespace SMoGu.App
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.buttonForCreateInvestment);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonForCreateGrafic);
             this.Controls.Add(this.chart1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -276,12 +273,12 @@ namespace SMoGu.App
 
         #endregion
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonForCreateGrafic;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonForCreateInvestment;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textPeriod;

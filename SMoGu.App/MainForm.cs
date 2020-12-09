@@ -13,13 +13,19 @@ namespace SMoGu.App
 {
     public partial class MainForm : Form
     {
-        private Tuple<int, CurrencyType> valueY = new Tuple<int, CurrencyType>(0, CurrencyType.RUB);
+        private CurrencyType Y;
         public readonly Investments investments;
         public MainForm()
-        {
+        {   
+            InitializeComponent();
+
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
             // эта штука хранит варианты инвестиций и должна быть инициализирована
             investments = new Investments();
+
+            buttonForCreateGrafic.Enabled = false;//отключение кнопки создания графика
+            buttonForCreateInvestment.Enabled = false;//отключение кнопки создания инвестиции
 
             /*if (investments.invs.Count == 0)
                 listBoxInvestments.Items.Add("У вас пока нет сохраненных инвестиций");
@@ -29,12 +35,13 @@ namespace SMoGu.App
                 listBoxInvestments.Items.Add(investments.invs);
             }*/
 
-            InitializeComponent();
+
         }
+
         public void CreateGrafic()
         {
             var queue = new ChartData(WhatPeriodOn());
-            var queueItems = queue.CreateNewTupleList(valueY.Item2);//получаем лист данных о выбранной валюте
+            var queueItems = queue.CreateNewTupleList(Y);//получаем лист данных о выбранной валюте
             
             investments.SetCalc(queue);//сеанс предсказывания
             
@@ -64,21 +71,22 @@ namespace SMoGu.App
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
             //CreateHelper()
-            if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked)
-                CreateGrafic();
-            else MessageBox.Show("Перед построением графика нужно выбрать валюту");
+            CreateGrafic();
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            valueY = new Tuple<int, CurrencyType>(0, CurrencyType.USD);
+            Y = CurrencyType.USD;
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            valueY = new Tuple<int, CurrencyType>(0, CurrencyType.EUR);
+            Y = CurrencyType.EUR;
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            valueY = new Tuple<int, CurrencyType>(0, CurrencyType.CNY);
+            Y = CurrencyType.CNY;
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void SaveInDocement()
         {
@@ -102,23 +110,23 @@ namespace SMoGu.App
         }
         private void radioButtonHalfYear_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void radioButtonOneMonth_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void radioButtonOneYear_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void radioButtonThreeMonth_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
         private void radioButtonOneWeek_CheckedChanged(object sender, EventArgs e)
         {
-
+            OnOffBtnsCreateGrafAndInvs();
         }
         private TimeOptions WhatPeriodOn()
         {
@@ -130,8 +138,18 @@ namespace SMoGu.App
                 return TimeOptions.One_Year;
             else if (radioButtonThreeMonth.Checked)
                 return TimeOptions.Three_Months;
-            else
+            else if (radioButtonOneWeek.Checked)
                 return TimeOptions.One_Week;
+            else throw new ArgumentException("Ни одна из кнопок периода времени не была выбрана");
+        }
+        private void OnOffBtnsCreateGrafAndInvs() {
+            if ((radioButton1.Checked || radioButton2.Checked || radioButton3.Checked) &&
+                    (radioButtonOneWeek.Checked || radioButtonThreeMonth.Checked || radioButtonOneYear.Checked
+                    || radioButtonOneMonth.Checked || radioButtonHalfYear.Checked))
+            {
+                buttonForCreateGrafic.Enabled = true;//включение кнопки создания графика
+                buttonForCreateInvestment.Enabled = true;//включение кнопки создания инвестиции
+            }
         }
     }
 }
