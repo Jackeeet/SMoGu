@@ -7,21 +7,48 @@ using System.Net;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс для парсера данных о курсе валют с ежедневным обновлением
+    /// </summary>
     class DailyDataParser : IDataParser<Tuple<decimal, decimal, decimal, DateTime>>
     {
+        /// <summary>
+        /// дата по которой берется последнее значение валюты в этот день
+        /// </summary>
         private String finalDate;
+        /// <summary>
+        /// начальная дата с которой начинается парсинг валютных значений
+        /// </summary>
         private String startDate;
+        /// <summary>
+        /// список значений доллара за определенный промежуток времени
+        /// </summary>
         private List<decimal> listUSD;
+        /// <summary>
+        /// список значений евро за определенный промежуток времени
+        /// </summary>
         private List<decimal> listEUR;
+        /// <summary>
+        /// список значений китайского юаня за определенный промежуток времени
+        /// </summary>
         private List<decimal> listCNY;
+        /// <summary>
+        /// список дат которым сопоставлены значения валют по этим датам
+        /// </summary>
         private List<DateTime> listDate;
+        /// <summary>
+        /// список сопоставления уникального кода валюты на сайте ЦБ РФ и наименования валюты
+        /// </summary>
         private static List<Tuple<string, CurrencyType>> IDS = new List<Tuple<string, CurrencyType>> 
         {
             Tuple.Create("R01235", CurrencyType.USD),
             Tuple.Create("R01239", CurrencyType.EUR),
             Tuple.Create("R01375", CurrencyType.CNY)
         };
-         
+        /// <summary>
+        /// конструктор класса для заполнения значений требуемыми значениями по заданному параметру
+        /// </summary>
+        /// <param name="duration"> срок на который нужно заполнить списки </param>
         public DailyDataParser(TimeOptions duration)
         {
             var today = DateTime.Now;
@@ -59,7 +86,10 @@ namespace SMoGu.App
             startDate = start.ToString().Split(' ')[0];
             finalDate = final.ToString().Split(' ')[0];
         }
-
+        /// <summary>
+        /// метод который из всех списков строит очередь, содержащую все значения сразу
+        /// </summary>
+        /// <returns> возвращает очередь, в которой все значения валют сопоставленны по дате </returns>
         public Queue<Tuple<decimal, decimal, decimal, DateTime>> GetData()
         {
             var queue = new Queue<Tuple<decimal, decimal, decimal, DateTime>>();
@@ -68,7 +98,9 @@ namespace SMoGu.App
                 queue.Enqueue(Tuple.Create(listUSD[i], listEUR[i], listCNY[i], listDate[i]));
             return queue;
         }
-
+        /// <summary>
+        /// метод заполняющий все списки данными с сайта
+        /// </summary>
         public void ParceData()
         {
             WebClient webClient = new WebClient();
@@ -79,7 +111,11 @@ namespace SMoGu.App
             foreach (var ID in IDS)
                 Parce(webClient, ID);
         }
-
+        /// <summary>
+        /// метод - парсер данных с сайта ЦБ РФ по передаваемым критериям
+        /// </summary>
+        /// <param name="webClient"> веб-клиент, объект содержащий в себе методы для парсинга </param>
+        /// <param name="ID"> уникальный идентификатор валюты для которой производится парсинг </param>
         private void Parce(WebClient webClient, Tuple<string, CurrencyType> ID)
         {
             var URL = "https://cbr.ru/currency_base/dynamics/?UniDbQuery.Posted=True&UniDbQuery.mode=1&UniDbQuery." +
@@ -95,7 +131,11 @@ namespace SMoGu.App
             if (ID.Item2.Equals(CurrencyType.CNY))
                 ParceDate(data);
         }
-
+        /// <summary>
+        /// вспомогательный метод для парсинга в котором определяется какой список заполнять
+        /// </summary>
+        /// <param name="collectionResults"> список полученных значений с сайта </param>
+        /// <param name="ID"> уникальный идентификатор валюты для которой производится парсинг </param>
         private void ParceHelper(System.Text.RegularExpressions.MatchCollection collectionResults, Tuple<string, CurrencyType> ID)
         {
             var list = new List<decimal>();
@@ -121,7 +161,10 @@ namespace SMoGu.App
                 default: throw new ArgumentException();
             }
         }
-
+        /// <summary>
+        /// метод, который парсит даты для дальнейшего сопоставления их с курсами валют
+        /// </summary>
+        /// <param name="data"> код страницы в строковом представлении для дальнейшей обработки </param>
         private void ParceDate(string data)
         {
             var collectionResults = System.Text.RegularExpressions.Regex.Matches(data, @"<td>([0-9]+\.[0-9]+\.[0-9]+)</td>");
