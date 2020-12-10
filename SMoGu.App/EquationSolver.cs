@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс, предоставляющий методы для решения системы уравнений методом Гаусса.
+    /// </summary>
     public static class EquationSolver
     {
         /// <summary>

@@ -8,8 +8,15 @@ using System.Text.RegularExpressions;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс, описывающий форму для создания варианта инвестиции.
+    /// </summary>
     class InvestmentCreationForm : Form
     {
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="invs"> Список созданных пользователем вариантов инвестиций. </param>
         public InvestmentCreationForm(Investments invs)
         {
             optionsPanel = new Panel
@@ -92,7 +99,10 @@ namespace SMoGu.App
             toolTip.SetToolTip(saveButton, "Сохранить созданный вариант");
             toolTip.SetToolTip(cancelButton, "Отменить создание варианта");
         }
-
+        /// <summary>
+        /// Проверяет, все ли поля формы заполнены.
+        /// </summary>
+        /// <returns> True, если все поля заполнены. </returns>
         private bool AllFieldsAreFilled()
         {
             return !string.IsNullOrEmpty(nameBox.Text) &&
@@ -102,6 +112,11 @@ namespace SMoGu.App
         }
 
         #region Parsers 
+        /// <summary>
+        /// Переводит выбранное в timeBox значение в int. 
+        /// </summary>
+        /// <param name="selectedTime"> Выбранное значение. </param>
+        /// <returns> Соответствующее значению целое число дней. </returns>
         private int DeterminePeriod(string selectedTime)
         {
             switch (selectedTime)
@@ -126,6 +141,11 @@ namespace SMoGu.App
             }
         }
 
+        /// <summary>
+        /// Определяет выбранную пользователем валюту.
+        /// </summary>
+        /// <param name="b"> Активированная пользователем радио-кнопка. </param>
+        /// <returns> Соответствующий тип валюты. </returns>
         private CurrencyType DetermineCurrency(RadioButton b)
         {
             return (b.Text == "USD") ? CurrencyType.USD :
@@ -134,6 +154,9 @@ namespace SMoGu.App
         #endregion
 
         #region Initializers 
+        /// <summary>
+        /// Инициализирует кнопки "Сохранить" и "Отмена".
+        /// </summary>
         private void FillButtonPanel()
         {
             saveButton = new Button()
@@ -143,7 +166,6 @@ namespace SMoGu.App
                 Location = new Point(60, 10),
                 BackColor = Color.White
             };
-
             cancelButton = new Button()
             {
                 Text = "Отмена",
@@ -151,12 +173,12 @@ namespace SMoGu.App
                 Location = new Point(160, 10),
                 BackColor = Color.White
             };
-
-
             buttonPanel.Controls.Add(saveButton);
             buttonPanel.Controls.Add(cancelButton);
         }
-
+        /// <summary>
+        /// Инициализирует поля формы.
+        /// </summary>
         private void FillOptionsPanel()
         {
             nameBox = new TextBox()
@@ -195,13 +217,17 @@ namespace SMoGu.App
             optionsPanel.Controls.Add(CreateOptionsLabel("Выберите время прогнозирования:", new Point(0, 180)));
             optionsPanel.Controls.Add(timeBox);
         }
-
+        /// <summary>
+        /// Инициализирует timeBox.
+        /// </summary>
         private void InitialiseTimeBox()
         {
             foreach (var time in times)
                 timeBox.Items.Add(time);
         }
-
+        /// <summary>
+        /// Инициализирует радио-кнопки для выбора валюты.
+        /// </summary>
         private void InitialiseCurrencyButtons()
         {
             usd = new RadioButton()
@@ -227,7 +253,12 @@ namespace SMoGu.App
             currencyPanel.Controls.Add(eur);
             currencyPanel.Controls.Add(cny);
         }
-
+        /// <summary>
+        /// Создает лейбл с указанным текстом и локацией.
+        /// </summary>
+        /// <param name="text"> Текст лейбла. </param>
+        /// <param name="location"> Локация лейбла. </param>
+        /// <returns></returns>
         private Label CreateOptionsLabel(string text, Point location)
         {
             return new Label

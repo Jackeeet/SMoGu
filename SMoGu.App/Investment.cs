@@ -35,7 +35,7 @@ namespace SMoGu.App
         /// <summary>
         /// Предполагаемая сумма (в рублях), которую можно будет получить после продажи валюты.
         /// </summary>
-        public decimal ProceedsEstimate { get; private set; } 
+        public decimal ProceedsEstimate { get; private set; }
         /// <summary>
         /// Доходность инвестиции. Относительная величина прибыли инвестиции.
         /// </summary>
@@ -56,14 +56,7 @@ namespace SMoGu.App
             Currency = currency;
             PredictionPeriod = period;
 
-            try
-            {
-                ValuesOverTime = calc.PredictCurrencyValues(period, currency);
-            }
-            catch
-            {
-
-            }
+            ValuesOverTime = calc.PredictCurrencyValues(period, currency);
 
             RiskEstimate = CalculateRiskEstimate();
             ProceedsEstimate = CalculateProceedsEstimate();
@@ -98,10 +91,8 @@ namespace SMoGu.App
             return (double)ProceedsEstimate / (double)Amount * 100;
         }
         /// <summary>
-        /// 
+        /// Определяет, равны ли значения двух объектов Investment.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Investment)) return false;
@@ -109,9 +100,8 @@ namespace SMoGu.App
             return InvestmentName == invt.InvestmentName && Amount == invt.Amount && Currency == invt.Currency;
         }
         /// <summary>
-        /// 
+        /// Определяет хэш-код экземпляра Investment.
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             unchecked
@@ -120,9 +110,8 @@ namespace SMoGu.App
             }
         }
         /// <summary>
-        /// 
+        /// Преобразует экземпляр Investment в string.
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("{0}: {1:0.00} {2}", InvestmentName, Amount, Currency);
