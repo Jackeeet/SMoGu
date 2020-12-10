@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SMoGu.App
+﻿namespace SMoGu.App
 {
     /// <summary>
     /// Интерфейс требующий реализации в каждом парсере соответствующих методов

@@ -65,6 +65,7 @@
     <Compile Include="CurrencyType.cs" />
     <Compile Include="DataBaseCreator.cs" />
     <Compile Include="DBManager.cs" />
+    <Compile Include="EquationSolver.cs" />
     <Compile Include="ICreatable.cs" />
     <Compile Include="IDataParser.cs" />
     <Compile Include="Investment.cs" />
