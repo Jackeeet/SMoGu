@@ -40,7 +40,7 @@ namespace SMoGu.App
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.buttonForCreateInvestment = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonInfo = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radioButtonThreeMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonOneYear = new System.Windows.Forms.RadioButton();
@@ -50,7 +50,6 @@ namespace SMoGu.App
             this.textPeriod = new System.Windows.Forms.TextBox();
             this.listBoxInvestments = new System.Windows.Forms.ListBox();
             this.investmentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.investmentsBindingSource)).BeginInit();
@@ -70,7 +69,7 @@ namespace SMoGu.App
             series1.Name = "Series1";
             series1.ShadowColor = System.Drawing.Color.Lime;
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(541, 336);
+            this.chart1.Size = new System.Drawing.Size(541, 342);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";
             title1.BorderWidth = 3;
@@ -145,16 +144,16 @@ namespace SMoGu.App
             this.buttonForCreateInvestment.UseVisualStyleBackColor = true;
             this.buttonForCreateInvestment.Click += new System.EventHandler(this.buttonCreateInvesment);
             // 
-            // button4
+            // buttonInfo
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(572, 440);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(158, 43);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Информация об инвестиции";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.buttonTrackInvestment_Click);
+            this.buttonInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonInfo.Location = new System.Drawing.Point(571, 429);
+            this.buttonInfo.Name = "buttonInfo";
+            this.buttonInfo.Size = new System.Drawing.Size(158, 43);
+            this.buttonInfo.TabIndex = 9;
+            this.buttonInfo.Text = "Информация об инвестиции";
+            this.buttonInfo.UseVisualStyleBackColor = true;
+            this.buttonInfo.Click += new System.EventHandler(this.buttonTrackInvestment_Click);
             // 
             // panel2
             // 
@@ -164,9 +163,9 @@ namespace SMoGu.App
             this.panel2.Controls.Add(this.radioButtonOneMonth);
             this.panel2.Controls.Add(this.radioButtonOneWeek);
             this.panel2.Controls.Add(this.textPeriod);
-            this.panel2.Location = new System.Drawing.Point(12, 423);
+            this.panel2.Location = new System.Drawing.Point(12, 429);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(276, 70);
+            this.panel2.Size = new System.Drawing.Size(277, 64);
             this.panel2.TabIndex = 16;
             // 
             // radioButtonThreeMonth
@@ -196,7 +195,7 @@ namespace SMoGu.App
             // radioButtonHalfYear
             // 
             this.radioButtonHalfYear.AutoSize = true;
-            this.radioButtonHalfYear.Location = new System.Drawing.Point(200, 17);
+            this.radioButtonHalfYear.Location = new System.Drawing.Point(199, 20);
             this.radioButtonHalfYear.Name = "radioButtonHalfYear";
             this.radioButtonHalfYear.Size = new System.Drawing.Size(67, 17);
             this.radioButtonHalfYear.TabIndex = 5;
@@ -241,38 +240,29 @@ namespace SMoGu.App
             // 
             // listBoxInvestments
             // 
-            this.listBoxInvestments.DataSource = this.investmentsBindingSource;
             this.listBoxInvestments.FormattingEnabled = true;
-            this.listBoxInvestments.Location = new System.Drawing.Point(572, 82);
+            this.listBoxInvestments.Location = new System.Drawing.Point(572, 81);
             this.listBoxInvestments.Name = "listBoxInvestments";
-            this.listBoxInvestments.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listBoxInvestments.ScrollAlwaysVisible = true;
             this.listBoxInvestments.Size = new System.Drawing.Size(157, 342);
             this.listBoxInvestments.TabIndex = 17;
+            this.listBoxInvestments.SelectedIndexChanged += new System.EventHandler(this.listBoxInvestments_SelectedIndexChanged);
             // 
             // investmentsBindingSource
             // 
             this.investmentsBindingSource.DataSource = typeof(SMoGu.App.Investments);
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Location = new System.Drawing.Point(714, 81);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(15, 343);
-            this.vScrollBar1.TabIndex = 18;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(750, 515);
-            this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.listBoxInvestments);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.buttonInfo);
             this.Controls.Add(this.buttonForCreateInvestment);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonForCreateGrafic);
@@ -297,7 +287,7 @@ namespace SMoGu.App
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Button buttonForCreateInvestment;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonInfo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textPeriod;
         private System.Windows.Forms.RadioButton radioButtonHalfYear;
@@ -305,9 +295,8 @@ namespace SMoGu.App
         private System.Windows.Forms.RadioButton radioButtonOneWeek;
         private System.Windows.Forms.RadioButton radioButtonOneYear;
         private System.Windows.Forms.RadioButton radioButtonThreeMonth;
-        private System.Windows.Forms.ListBox listBoxInvestments;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.BindingSource investmentsBindingSource;
+        public System.Windows.Forms.ListBox listBoxInvestments;
     }
 }
 

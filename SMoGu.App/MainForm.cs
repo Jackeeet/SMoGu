@@ -38,9 +38,7 @@ namespace SMoGu.App
 
             buttonForCreateGrafic.Enabled = false;//отключение кнопки создания графика
             buttonForCreateInvestment.Enabled = false;//отключение кнопки создания инвестиции
-
-            /*if (investments.invs.Count == 0)
-                listBoxInvestments.Items.Add("У вас пока нет сохраненных инвестиций");*/
+            buttonInfo.Enabled = false;//отключение кнопки подробнйо информации об инвестциии
         }
         /// <summary>
         /// Метод для создания графика
@@ -50,7 +48,7 @@ namespace SMoGu.App
             var queue = new ChartData(WhatPeriodOn());
             var queueItems = queue.CreateNewTupleList(currency);//получаем лист данных о выбранной валюте
             
-            investments.SetCalc(queue);//сеанс предсказывания
+            investments.SetCalc(queue);//сеанс предсказывания для графика
             
             chart1.ChartAreas[0].AxisX.Interval = queueItems.Count/10;//интервал отметок по оси X
             chart1.ChartAreas[0].AxisX.LabelStyle.Angle = -60;//отметка интервала отображается под углом
@@ -74,6 +72,8 @@ namespace SMoGu.App
                 }
                 chart1.Series[0].Points.AddXY(x, y);//рисуем точку
             }
+            buttonForCreateInvestment.Enabled = true;//включение кнопки создания инвестиции
+            //только после построения графика
         }
         /// <summary>
         /// Метод отслеживания однократного нажатия на кнопку Создания графика
@@ -146,6 +146,8 @@ namespace SMoGu.App
             {
                 this.Show();
                 //this.listBoxInvestments.DataSource = this.investments.invs;
+                if (this.investments.invs.Count != 0)
+                    this.listBoxInvestments.Items.Add(this.investments.invs.Last());
             };
         }
         /// <summary>
@@ -155,7 +157,10 @@ namespace SMoGu.App
         /// <param name="e">Событие одноератного нажатия</param>
         private void buttonTrackInvestment_Click(object sender, EventArgs e)
         {
-            //TODO
+            var element = investments.invs[listBoxInvestments.SelectedIndex];
+            var formInfo = new InvestmentInfoForm(element);
+            formInfo.Show();//открытие окна с подробной информацией
+            this.Hide();
         }
         /// <summary>
         /// Метод отслеживания нажатия на радиокнопку Half Year
@@ -221,22 +226,18 @@ namespace SMoGu.App
             else throw new ArgumentException("Ни одна из кнопок периода времени не была выбрана");
         }
         /// <summary>
-        /// Метод, который активирует кнопки Создания Графика и Создания Инвестциии
+        /// Метод, который активирует кнопки Создания Графика
         /// </summary>
         private void OnOffBtnsCreateGrafAndInvs() {
             if ((radioButton1.Checked || radioButton2.Checked || radioButton3.Checked) &&
                     (radioButtonOneWeek.Checked || radioButtonThreeMonth.Checked || radioButtonOneYear.Checked
                     || radioButtonOneMonth.Checked || radioButtonHalfYear.Checked))
-            {
                 buttonForCreateGrafic.Enabled = true;//включение кнопки создания графика
-                buttonForCreateInvestment.Enabled = true;//включение кнопки создания инвестиции
-            }
         }
 
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        private void listBoxInvestments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //e.
-            //listBoxInvestments.Items
+            buttonInfo.Enabled = true;
         }
     }
 }
