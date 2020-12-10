@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Калькулятор, прогнозирующий изменение курса валюты.
+    /// </summary>
     public class PredictionCalculator
     {
         private static Random rnd = new Random();
