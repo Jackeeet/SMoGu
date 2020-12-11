@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.Data;
 
 namespace SMoGu.App
 {
-    /// <summary>
-    /// Класс для парсера данных о курсе валют с ежедневным обновлением
-    /// </summary>
     class DailyDataParser : IDataParser<Tuple<decimal, decimal, decimal, DateTime>>
     {
         /// <summary>
@@ -45,6 +43,7 @@ namespace SMoGu.App
             Tuple.Create("R01239", CurrencyType.EUR),
             Tuple.Create("R01375", CurrencyType.CNY)
         };
+
         /// <summary>
         /// конструктор класса для заполнения значений требуемыми значениями по заданному параметру
         /// </summary>
@@ -93,8 +92,15 @@ namespace SMoGu.App
         public Queue<Tuple<decimal, decimal, decimal, DateTime>> GetData()
         {
             var queue = new Queue<Tuple<decimal, decimal, decimal, DateTime>>();
-            ParceData();
-            for (int i=0; i < listDate.Count; i++)
+            try
+            {
+                GetCBRData();
+            }
+            catch
+            {
+                GetFallBackData();
+            }
+            for (int i = 0; i < listDate.Count; i++)
                 queue.Enqueue(Tuple.Create(listUSD[i], listEUR[i], listCNY[i], listDate[i]));
             return queue;
         }
@@ -170,9 +176,49 @@ namespace SMoGu.App
             var collectionResults = System.Text.RegularExpressions.Regex.Matches(data, @"<td>([0-9]+\.[0-9]+\.[0-9]+)</td>");
             foreach (var e in collectionResults)
             {
-                var date=e.ToString().Substring(4, 10);
+                var date = e.ToString().Substring(4, 10);
                 var parceDate = date.Split('.');
                 listDate.Add(new DateTime(int.Parse(parceDate[2]), int.Parse(parceDate[1]), int.Parse(parceDate[0])));
+            }
+        }
+
+        // сбор данных через веб-сервис ЦБ РФ
+        private void GetCBRData()
+        {
+            listUSD = new List<decimal>();
+            listEUR = new List<decimal>();
+            listCNY = new List<decimal>();
+            listDate = new List<DateTime>();
+
+            // подключение сервиса и запрос данных о курсе валют
+            var dailyInfo = new cbrDailyInfo.DailyInfo();
+            // GetCursDynamic - метод веб-сервиса ЦБР для получения данных о динамике курса валют
+            var usdRows = dailyInfo.GetCursDynamic(DateTime.Parse(startDate), DateTime.Parse(finalDate), "R01235").Tables[0].Rows;
+            var eurRows = dailyInfo.GetCursDynamic(DateTime.Parse(startDate), DateTime.Parse(finalDate), "R01239").Tables[0].Rows;
+            var cnyRows = dailyInfo.GetCursDynamic(DateTime.Parse(startDate), DateTime.Parse(finalDate), "R01375").Tables[0].Rows;
+            // парсинг полученных данных и заполнение соответствующих списков
+            for (int i = 0; i < usdRows.Count; i++)
+            {
+                listUSD.Add(ParceCBRValues(usdRows[i]));
+                listEUR.Add(ParceCBRValues(eurRows[i]));
+                listCNY.Add(ParceCBRValues(cnyRows[i]));
+                listDate.Add(DateTime.Parse(usdRows[i].ItemArray[0].ToString()));
+            }
+        }
+
+        // парсинг с проверкой на номинал > 1 (в основном для юаня)
+        private decimal ParceCBRValues(DataRow row) => new decimal(double.Parse(row.ItemArray[3].ToString()) / double.Parse(row.ItemArray[2].ToString()));
+
+        // метод для сбора данных в случае, если веб-сервис недоступен
+        private void GetFallBackData()
+        {
+            try
+            {
+                ParceData();
+            }
+            catch
+            {
+                // TODO: вывести ошибку (скорее всего ошибка соединения с сервером)
             }
         }
     }
