@@ -28,7 +28,7 @@ namespace SMoGu.App
         /// Конструктор главной формы
         /// </summary>
         public MainForm()
-        {   
+        {
             InitializeComponent();
 
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -47,10 +47,10 @@ namespace SMoGu.App
         {
             var queue = new ChartData(WhatPeriodOn());
             var queueItems = queue.CreateNewTupleList(currency);//получаем лист данных о выбранной валюте
-            
+
             investments.SetCalc(queue);//сеанс предсказывания для графика
-            
-            chart1.ChartAreas[0].AxisX.Interval = queueItems.Count/10;//интервал отметок по оси X
+
+            chart1.ChartAreas[0].AxisX.Interval = queueItems.Count / 10;//интервал отметок по оси X
             chart1.ChartAreas[0].AxisX.LabelStyle.Angle = -60;//отметка интервала отображается под углом
 
             var ax = new Axis();
@@ -146,8 +146,15 @@ namespace SMoGu.App
             {
                 this.Show();
                 //this.listBoxInvestments.DataSource = this.investments.invs;
-                if (this.investments.invs.Count != 0)
+
+                //if(investmentCreationForm.DialogResult == DialogResult.
+
+                var form = (InvestmentCreationForm)sender2;
+
+                if (form.DialogResult == DialogResult.OK)
+                {
                     this.listBoxInvestments.Items.Add(this.investments.invs.Last());
+                }
             };
         }
         /// <summary>
@@ -228,7 +235,8 @@ namespace SMoGu.App
         /// <summary>
         /// Метод, который активирует кнопки Создания Графика
         /// </summary>
-        private void OnOffBtnsCreateGrafAndInvs() {
+        private void OnOffBtnsCreateGrafAndInvs()
+        {
             if ((radioButton1.Checked || radioButton2.Checked || radioButton3.Checked) &&
                     (radioButtonOneWeek.Checked || radioButtonThreeMonth.Checked || radioButtonOneYear.Checked
                     || radioButtonOneMonth.Checked || radioButtonHalfYear.Checked))

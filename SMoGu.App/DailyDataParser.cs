@@ -98,7 +98,7 @@ namespace SMoGu.App
             }
             catch
             {
-                GetFallBackData();
+                ParceData();
             }
             for (int i = 0; i < listDate.Count; i++)
                 queue.Enqueue(Tuple.Create(listUSD[i], listEUR[i], listCNY[i], listDate[i]));
@@ -182,7 +182,9 @@ namespace SMoGu.App
             }
         }
 
-        // сбор данных через веб-сервис ЦБ РФ
+        /// <summary>
+        /// Собирает данные о курсах валют через веб-сервис ЦБР.
+        /// </summary>
         private void GetCBRData()
         {
             listUSD = new List<decimal>();
@@ -206,20 +208,12 @@ namespace SMoGu.App
             }
         }
 
-        // парсинг с проверкой на номинал > 1 (в основном для юаня)
+        /// <summary>
+        /// Достает стоимость единицы выбранной валюты из 
+        /// указанного ряда в таблице данных. 
+        /// </summary>
+        /// <param name="row"> Ряд в таблице данных. </param>
+        /// <returns> Значение курса валюты. </returns>
         private decimal ParceCBRValues(DataRow row) => new decimal(double.Parse(row.ItemArray[3].ToString()) / double.Parse(row.ItemArray[2].ToString()));
-
-        // метод для сбора данных в случае, если веб-сервис недоступен
-        private void GetFallBackData()
-        {
-            try
-            {
-                ParceData();
-            }
-            catch
-            {
-                // TODO: вывести ошибку (скорее всего ошибка соединения с сервером)
-            }
-        }
     }
 }

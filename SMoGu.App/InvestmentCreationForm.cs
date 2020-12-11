@@ -13,6 +13,7 @@ namespace SMoGu.App
     /// </summary>
     class InvestmentCreationForm : Form
     {
+
         /// <summary>
         /// Конструктор класса.
         /// </summary>
@@ -67,7 +68,10 @@ namespace SMoGu.App
                             invs.AddInvestment(name, amount, curr, period);
                             var dialog = MessageBox.Show("Вариант инвестиции сохранен.");
                             if (dialog == DialogResult.OK)
+                            {
+                                this.DialogResult = DialogResult.OK;
                                 Close();
+                            }
                         }
                     }
                     else
@@ -76,7 +80,11 @@ namespace SMoGu.App
                     }
                 }
             };
-            cancelButton.Click += (sender, args) => Close();
+            cancelButton.Click += (sender, args) =>
+            {
+                this.DialogResult = DialogResult.Cancel;
+                Close();
+            };
         }
         protected override void OnLoad(EventArgs e)
         {
