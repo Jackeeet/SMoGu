@@ -138,7 +138,7 @@ namespace SMoGu.App
         /// <param name="e">Событие одноератного нажатия</param>
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
-            var investmentCreationForm = new InvestmentCreationForm(investments);//создание формы создания инвестиции
+            var investmentCreationForm = new InvestmentCreationForm(this.investments, CheckedCurrency());//создание формы создания инвестиции
             investmentCreationForm.Show(); // открытие другого окна
             this.Hide(); // закрыть текущее окно
             // возвращение главного окна при закрытии investmentCreationForm
@@ -167,7 +167,6 @@ namespace SMoGu.App
             var element = investments.invs[listBoxInvestments.SelectedIndex];
             var formInfo = new InvestmentInfoForm(element);
             formInfo.Show();//открытие окна с подробной информацией
-            this.Hide();
         }
         /// <summary>
         /// Метод отслеживания нажатия на радиокнопку Half Year
@@ -246,6 +245,14 @@ namespace SMoGu.App
         private void listBoxInvestments_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonInfo.Enabled = true;
+        }
+
+        public CurrencyType CheckedCurrency()
+        {
+            if (radioButton1.Checked) return CurrencyType.USD;
+            else if (radioButton2.Checked) return CurrencyType.EUR;
+            else if (radioButton3.Checked) return CurrencyType.CNY;
+            else throw new ArgumentException();
         }
     }
 }

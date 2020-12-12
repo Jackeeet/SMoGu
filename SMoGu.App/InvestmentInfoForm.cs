@@ -65,11 +65,11 @@ namespace SMoGu.App
             Controls.Add(infoPanel);
 
             infoPanel.Controls.Add(CreateLabel("Предполагаемый доход:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.ProceedsEstimate.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(Math.Round(investment.ProceedsEstimate, 3).ToString()));
             infoPanel.Controls.Add(CreateLabel("Предполагаемые риски:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.RiskEstimate.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(Math.Round(investment.RiskEstimate,5).ToString()));
             infoPanel.Controls.Add(CreateLabel("Процент выгодности:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.ProfitPercentage.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(Math.Round(investment.ProfitPercentage, 5).ToString()));
             #endregion
         }
 

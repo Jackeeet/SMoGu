@@ -18,14 +18,14 @@ namespace SMoGu.App
         /// Конструктор класса.
         /// </summary>
         /// <param name="invs"> Список созданных пользователем вариантов инвестиций. </param>
-        public InvestmentCreationForm(Investments invs)
+        public InvestmentCreationForm(Investments invs, CurrencyType currency)
         {
             optionsPanel = new Panel
             {
                 Location = new Point(0, 0),
                 Size = new Size(ClientSize.Width, 250),
             };
-            FillOptionsPanel();
+            FillOptionsPanel(currency);
 
             buttonPanel = new Panel
             {
@@ -187,7 +187,7 @@ namespace SMoGu.App
         /// <summary>
         /// Инициализирует поля формы.
         /// </summary>
-        private void FillOptionsPanel()
+        private void FillOptionsPanel(CurrencyType c)
         {
             nameBox = new TextBox()
             {
@@ -206,7 +206,7 @@ namespace SMoGu.App
                 Location = new Point(0, 150),
                 Size = new Size(optionsPanel.Width, 30)
             };
-            InitialiseCurrencyButtons();
+            InitialiseCurrencyButtons(c);
 
             timeBox = new ComboBox()
             {
@@ -236,7 +236,7 @@ namespace SMoGu.App
         /// <summary>
         /// Инициализирует радио-кнопки для выбора валюты.
         /// </summary>
-        private void InitialiseCurrencyButtons()
+        private void InitialiseCurrencyButtons(CurrencyType c)
         {
             usd = new RadioButton()
             {
@@ -260,6 +260,10 @@ namespace SMoGu.App
             currencyPanel.Controls.Add(usd);
             currencyPanel.Controls.Add(eur);
             currencyPanel.Controls.Add(cny);
+
+            if (c == CurrencyType.USD) usd.Checked = true;
+            else if (c == CurrencyType.EUR) eur.Checked = true;
+            else if (c == CurrencyType.CNY) cny.Checked = true;
         }
         /// <summary>
         /// Создает лейбл с указанным текстом и локацией.
