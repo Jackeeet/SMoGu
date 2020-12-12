@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -39,6 +33,7 @@ namespace SMoGu.App
             buttonForCreateGrafic.Enabled = false;//отключение кнопки создания графика
             buttonForCreateInvestment.Enabled = false;//отключение кнопки создания инвестиции
             buttonInfo.Enabled = false;//отключение кнопки подробнйо информации об инвестциии
+            buttonSave.Enabled = false;
         }
         /// <summary>
         /// Метод для создания графика
@@ -120,14 +115,16 @@ namespace SMoGu.App
         /// </summary>
         private void SaveInDocement()
         {
-            //TODO
+            
+            var saveToFile = new DBManager();
+            saveToFile.SaveFile(investments);
         }
         /// <summary>
         /// Метод отслеживания нажатия на кнопку Сохранения
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления</param>
         /// <param name="e">Событие одноератного нажатия</param>
-        private void buttonSave(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             SaveInDocement();
         }
@@ -145,15 +142,13 @@ namespace SMoGu.App
             investmentCreationForm.FormClosing += (sender2, args) =>
             {
                 this.Show();
-                //this.listBoxInvestments.DataSource = this.investments.invs;
-
-                //if(investmentCreationForm.DialogResult == DialogResult.
 
                 var form = (InvestmentCreationForm)sender2;
 
                 if (form.DialogResult == DialogResult.OK)
                 {
                     this.listBoxInvestments.Items.Add(this.investments.invs.Last());
+                    buttonSave.Enabled = true;
                 }
             };
         }
@@ -164,9 +159,15 @@ namespace SMoGu.App
         /// <param name="e">Событие одноератного нажатия</param>
         private void buttonTrackInvestment_Click(object sender, EventArgs e)
         {
-            var element = investments.invs[listBoxInvestments.SelectedIndex];
-            var formInfo = new InvestmentInfoForm(element);
-            formInfo.Show();//открытие окна с подробной информацией
+            try
+            {
+                var element = investments.invs[listBoxInvestments.SelectedIndex];
+                var formInfo = new InvestmentInfoForm(element);
+                formInfo.Show();//открытие окна с подробной информацией
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+            }
         }
         /// <summary>
         /// Метод отслеживания нажатия на радиокнопку Half Year
@@ -244,7 +245,10 @@ namespace SMoGu.App
 
         private void listBoxInvestments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonInfo.Enabled = true;
+            if (listBoxInvestments.SelectedIndex >= 0)
+                buttonInfo.Enabled = true;
+             else
+                buttonInfo.Enabled = false;
         }
 
         public CurrencyType CheckedCurrency()

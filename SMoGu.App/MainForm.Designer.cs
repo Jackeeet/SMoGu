@@ -28,14 +28,13 @@ namespace SMoGu.App
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonForCreateGrafic = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
@@ -49,10 +48,8 @@ namespace SMoGu.App
             this.radioButtonOneWeek = new System.Windows.Forms.RadioButton();
             this.textPeriod = new System.Windows.Forms.TextBox();
             this.listBoxInvestments = new System.Windows.Forms.ListBox();
-            this.investmentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.investmentsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // chart1
@@ -89,16 +86,16 @@ namespace SMoGu.App
             this.buttonForCreateGrafic.UseVisualStyleBackColor = true;
             this.buttonForCreateGrafic.Click += new System.EventHandler(this.buttonCreateGrafic);
             // 
-            // button2
+            // buttonSave
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(147, 32);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 29);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Сохранить";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.buttonSave);
+            this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSave.Location = new System.Drawing.Point(146, 32);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(103, 29);
+            this.buttonSave.TabIndex = 4;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // radioButton1
             // 
@@ -248,10 +245,6 @@ namespace SMoGu.App
             this.listBoxInvestments.TabIndex = 17;
             this.listBoxInvestments.SelectedIndexChanged += new System.EventHandler(this.listBoxInvestments_SelectedIndexChanged);
             // 
-            // investmentsBindingSource
-            // 
-            this.investmentsBindingSource.DataSource = typeof(SMoGu.App.Investments);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,7 +257,7 @@ namespace SMoGu.App
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.buttonInfo);
             this.Controls.Add(this.buttonForCreateInvestment);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonForCreateGrafic);
             this.Controls.Add(this.chart1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -273,7 +266,6 @@ namespace SMoGu.App
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.investmentsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,7 +274,7 @@ namespace SMoGu.App
         #endregion
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button buttonForCreateGrafic;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
@@ -295,7 +287,6 @@ namespace SMoGu.App
         private System.Windows.Forms.RadioButton radioButtonOneWeek;
         private System.Windows.Forms.RadioButton radioButtonOneYear;
         private System.Windows.Forms.RadioButton radioButtonThreeMonth;
-        private System.Windows.Forms.BindingSource investmentsBindingSource;
         public System.Windows.Forms.ListBox listBoxInvestments;
     }
 }

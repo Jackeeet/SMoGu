@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SMoGu.App
 {
@@ -15,7 +16,7 @@ namespace SMoGu.App
         /// <summary>
         /// путь до текстового файла
         /// </summary>
-        private string path = @"D:\repository\SMoGu\SMoGu.App\DataBase.txt";
+        private string path = @"\DataBase.txt";
         /// <summary>
         /// поле, хранящее информацию об инвестициях в строковом представлении
         /// </summary>
@@ -29,6 +30,10 @@ namespace SMoGu.App
         /// </summary>
         public void CreateDataBase()
         {
+            /*var pathDialog = new FolderBrowserDialog();
+            if (pathDialog.ShowDialog() == DialogResult.OK)
+                path = pathDialog.SelectedPath;//Путь к директории*/
+
             var investments = new Investments();
             CreateListInvestments(investments.invs);
             var writer = new StreamWriter(path, false, Encoding.Default);
