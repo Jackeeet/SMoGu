@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SMoGu.App
 {
@@ -56,7 +57,7 @@ namespace SMoGu.App
             Currency = currency;
             PredictionPeriod = period;
 
-            ValuesOverTime = calc.PredictCurrencyValues(period, currency);
+            ValuesOverTime = calc?.PredictCurrencyValues(period, currency);
 
             RiskEstimate = CalculateRiskEstimate();
             ProceedsEstimate = CalculateProceedsEstimate();
@@ -69,7 +70,16 @@ namespace SMoGu.App
         /// <returns> Процент риска, связанный с вариантом инвестиции. </returns>
         private double CalculateRiskEstimate()
         {
-            // temporary
+            if (ValuesOverTime != null)
+            {
+                var current = ValuesOverTime[0].Item1;
+                var diff = ValuesOverTime.Take(11)
+                                         .Skip(1)
+                                         .Select(val => val.Item1)
+                                         .Select(val => current - val);
+                var result = (double)diff.Aggregate((x, y) => x + y);
+                return Math.Round(result, 2);
+            }
             return 0.0;
         }
         /// <summary>
@@ -79,7 +89,7 @@ namespace SMoGu.App
         /// <returns> Предполагаемая прибыль в рублях. </returns>
         private decimal CalculateProceedsEstimate()
         {
-            return ValuesOverTime[ValuesOverTime.Count - 1].Item1 - ValuesOverTime[0].Item1;
+            return Math.Round(ValuesOverTime[ValuesOverTime.Count - 1].Item1 - ValuesOverTime[0].Item1, 2);
         }
         /// <summary>
         /// Метод для расчета доходности инвестиции.
@@ -88,7 +98,7 @@ namespace SMoGu.App
         /// <returns> Доходность инвестиции (в процентах). </returns>
         private double CalculateProfitPercentage()
         {
-            return (double)ProceedsEstimate / (double)Amount * 100;
+            return Math.Round((double)ProceedsEstimate / (double)Amount * 100, 2);
         }
         /// <summary>
         /// Определяет, равны ли значения двух объектов Investment.

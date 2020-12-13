@@ -147,7 +147,7 @@ namespace SMoGu.App
 
                 if (form.DialogResult == DialogResult.OK)
                 {
-                    this.listBoxInvestments.Items.Add(this.investments.invs.Last());
+                    this.listBoxInvestments.Items.Add(this.investments.Invs.Last());
                     buttonSave.Enabled = true;
                 }
             };
@@ -161,7 +161,7 @@ namespace SMoGu.App
         {
             try
             {
-                var element = investments.invs[listBoxInvestments.SelectedIndex];
+                var element = investments.Invs[listBoxInvestments.SelectedIndex];
                 var formInfo = new InvestmentInfoForm(element);
                 formInfo.Show();//открытие окна с подробной информацией
             }

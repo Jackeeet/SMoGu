@@ -281,18 +281,6 @@ namespace SMoGu.App
                 TextAlign = ContentAlignment.MiddleCenter
             };
         }
-        #endregion
-
-        #region StaticFields
-        private static int width = 300;
-        private static List<string> times = new List<string>
-        {
-            "1 месяц", "3 месяца", "6 месяцев", "9 месяцев",
-            "1 год", "2 года", "5 лет", "10 лет"
-        };
-
-        private static Panel optionsPanel, buttonPanel, currencyPanel;
-        private static Button saveButton, cancelButton;
 
         private void InitializeComponent()
         {
@@ -307,13 +295,25 @@ namespace SMoGu.App
             this.ResumeLayout(false);
 
         }
+        #endregion
 
-        private static TextBox nameBox, amountBox;
-        private static ComboBox timeBox;
+        #region Fields
+        private TextBox nameBox, amountBox;
+        private ComboBox timeBox;
+        private RadioButton usd, eur, cny;
+
+        private static Panel optionsPanel, buttonPanel, currencyPanel;
+        private static Button saveButton, cancelButton;
+
         private static ToolTip toolTip;
-        private static RadioButton usd, eur, cny;
-
         private static Regex amountRegex = new Regex("^\\d{1,7}([,\\.]\\d{1,2})?");
+
+        private static int width = 300;
+        private static List<string> times = new List<string>
+        {
+            "1 месяц", "3 месяца", "6 месяцев", "9 месяцев",
+            "1 год", "2 года", "5 лет", "10 лет"
+        };
         #endregion
     }
 }

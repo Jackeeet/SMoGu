@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SMoGu.App
 {
@@ -35,7 +33,7 @@ namespace SMoGu.App
                 path = pathDialog.SelectedPath;//Путь к директории*/
 
             var investments = new Investments();
-            CreateListInvestments(investments.invs);
+            CreateListInvestments(investments.Invs);
             var writer = new StreamWriter(path, false, Encoding.Default);
             writer.WriteLine(name);
             foreach (var investment in inv)
