@@ -53,7 +53,7 @@ namespace SMoGu.App
                     if (amountRegex.IsMatch(amountBox.Text))
                     {
                         var amount = new decimal(Math.Round(double.Parse(amountBox.Text, CultureInfo.InvariantCulture), 2));
-                        if (amount < new decimal(0.01))
+                        if (amount < 0.01m)
                         {
                             MessageBox.Show("Сумма должна быть ненулевой");
                         }

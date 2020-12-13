@@ -6,7 +6,7 @@ namespace SMoGu.App
     /// <summary>
     /// Класс, предоставляющий методы для решения системы уравнений методом Гаусса.
     /// </summary>
-    public static class EquationSolver
+    public class EquationSolver
     {
         /// <summary>
         /// Решает систему уравнений методом Гаусса.
@@ -14,7 +14,7 @@ namespace SMoGu.App
         /// <param name="matrix"> Матрица коэффициентов уравнения. </param>
         /// <param name="freeColumn"> Столбец свободных членов. </param>
         /// <returns> Массив решений уравнения. </returns>
-        public static double[] GaussSolver(double[][] matrix, double[] freeColumn)
+        public static double[] RunGaussSolver(double[][] matrix, double[] freeColumn)
         {
             var variableCount = matrix[0].Length;
             var augmented = matrix.Select(row =>
@@ -27,7 +27,7 @@ namespace SMoGu.App
         }
 
         /// <summary>
-        /// Определят решение системы уравнений из расширенной матрицы, 
+        /// Определяет решение системы уравнений из расширенной матрицы, 
         /// приведенной к ступенчатому виду.
         /// </summary>
         /// <param name="augmented"> Расширенная матрица. </param>
@@ -67,7 +67,7 @@ namespace SMoGu.App
         /// <param name="augmented"> Расширенная матрица. </param>
         /// <param name="varCount"> Количество переменных. </param>
         /// <returns> True, если решение существует. </returns>
-        private static bool SolutionExists(double[][] augmented, int varCount)
+        public static bool SolutionExists(double[][] augmented, int varCount)
         {
             foreach (var a in augmented)
             {

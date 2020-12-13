@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static SMoGu.App.EquationSolver;
 
 namespace SMoGu.App
 {
@@ -33,8 +32,10 @@ namespace SMoGu.App
         public List<Tuple<decimal, DateTime>> PredictCurrencyValues(int predictionCount, CurrencyType currency)
         {
             var data = RawData.CreateNewTupleList(currency);
-            var result = new List<Tuple<decimal, DateTime>>();
-            result.Add(data[data.Count - 1]);
+            var result = new List<Tuple<decimal, DateTime>>
+            {
+                data[data.Count - 1]
+            };
 
             // количество параметров, которые вычисляются для авторегрессии
             var paramsCount = data.Count / 2;
@@ -57,7 +58,7 @@ namespace SMoGu.App
         private static Tuple<decimal, DateTime> PredictNext(List<Tuple<decimal, DateTime>> data, int paramsCount, decimal[] coefs)
         {
             // константа
-            decimal c = new decimal(0.0);
+            decimal c = 0m;
             // белый шум
             var whiteNoise = new decimal((rnd.NextDouble() * (1.0 + 1.0) - 1.0));
             var next = c + whiteNoise;
@@ -78,9 +79,9 @@ namespace SMoGu.App
         private static decimal[] DetermineARCoefs(List<Tuple<decimal, DateTime>> data, int paramsCount)
         {
             double[] freeColumn = data.Skip(data.Count - paramsCount)
-                                           .Select(e => (double)e.Item1)
-                                        .Reverse()
-                                           .ToArray();
+                                      .Select(e => (double)e.Item1)
+                                      .Reverse()
+                                      .ToArray();
             double[][] matrix = new double[paramsCount][];
             var end = data.Count - 2;
             for (int i = 0; i < paramsCount; i++)
@@ -91,7 +92,7 @@ namespace SMoGu.App
                     matrix[i][j] = (double)data[end - j - i].Item1;
                 }
             }
-            return GaussSolver(matrix, freeColumn).Select(e => (decimal)e).ToArray();
+            return EquationSolver.RunGaussSolver(matrix, freeColumn).Select(e => (decimal)e).ToArray();
         }
     }
 }
