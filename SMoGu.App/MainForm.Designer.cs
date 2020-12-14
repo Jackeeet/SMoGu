@@ -192,7 +192,7 @@ namespace SMoGu.App
             // radioButtonHalfYear
             // 
             this.radioButtonHalfYear.AutoSize = true;
-            this.radioButtonHalfYear.Location = new System.Drawing.Point(199, 20);
+            this.radioButtonHalfYear.Location = new System.Drawing.Point(199, 17);
             this.radioButtonHalfYear.Name = "radioButtonHalfYear";
             this.radioButtonHalfYear.Size = new System.Drawing.Size(67, 17);
             this.radioButtonHalfYear.TabIndex = 5;
@@ -204,7 +204,7 @@ namespace SMoGu.App
             // radioButtonOneMonth
             // 
             this.radioButtonOneMonth.AutoSize = true;
-            this.radioButtonOneMonth.Location = new System.Drawing.Point(103, 15);
+            this.radioButtonOneMonth.Location = new System.Drawing.Point(103, 17);
             this.radioButtonOneMonth.Name = "radioButtonOneMonth";
             this.radioButtonOneMonth.Size = new System.Drawing.Size(77, 17);
             this.radioButtonOneMonth.TabIndex = 3;
@@ -216,7 +216,7 @@ namespace SMoGu.App
             // radioButtonOneWeek
             // 
             this.radioButtonOneWeek.AutoSize = true;
-            this.radioButtonOneWeek.Location = new System.Drawing.Point(14, 40);
+            this.radioButtonOneWeek.Location = new System.Drawing.Point(14, 43);
             this.radioButtonOneWeek.Name = "radioButtonOneWeek";
             this.radioButtonOneWeek.Size = new System.Drawing.Size(74, 17);
             this.radioButtonOneWeek.TabIndex = 2;

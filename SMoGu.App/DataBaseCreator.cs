@@ -7,24 +7,24 @@ using System.IO;
 namespace SMoGu.App
 {
     /// <summary>
-    /// Класс, в котором есть методы для создания текстого файла, хранящего данные об инвестициях
+    /// Класс с методами для создания текстового файла, хранящего данные об инвестициях.
     /// </summary>
     class DataBaseCreator
     {
         /// <summary>
-        /// путь до текстового файла
+        /// Путь до текстового файла.
         /// </summary>
         private string path = @"\DataBase.txt";
         /// <summary>
-        /// поле, хранящее информацию об инвестициях в строковом представлении
+        /// Поле, хранящее информацию об инвестициях в строковом представлении.
         /// </summary>
         private List<string> inv;
         /// <summary>
-        /// заголовок текстового документа
+        /// Заголовок текстового документа.
         /// </summary>
         private string name = "Наименование инвестиции: ВАЛЮТА; Прибыль; Риски; Доходность";
         /// <summary>
-        /// метод, записывающий данные об инвестициях в текстовый документ DataBase.txt
+        /// Метод, записывающий данные об инвестициях в текстовый документ DataBase.txt.
         /// </summary>
         public void CreateDataBase()
         {
@@ -41,9 +41,9 @@ namespace SMoGu.App
             writer.Close();
         }
         /// <summary>
-        /// метод, заполняющий список, хранящий данные об инвестициях в формате строк 
+        /// Метод, заполняющий список, хранящий данные об инвестициях в формате строк. 
         /// </summary>
-        /// <param name="investments"> список инвестиций в первоначальном представлении </param>
+        /// <param name="investments"> Список инвестиций в первоначальном представлении. </param>
         private void CreateListInvestments(List<Investment> investments)
         {
             inv = investments.Select(i => i.InvestmentName + ": " + i.Currency.ToString() + "; " + 

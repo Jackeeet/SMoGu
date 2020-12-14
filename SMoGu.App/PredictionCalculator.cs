@@ -37,12 +37,12 @@ namespace SMoGu.App
                 data[data.Count - 1]
             };
 
-            // количество параметров, которые вычисляются для авторегрессии
+            // Количество параметров, вычисляемых для авторегрессии.
             var paramsCount = data.Count / 2;
             var coefs = DetermineARCoefs(data, paramsCount);
 
             for (int i = 0; i < predictionCount; i++)
-                result.Add(PredictNext(data, paramsCount, coefs));
+                result.Add(PredictNext(data, result[result.Count-1], paramsCount, coefs));
             return result;
         }
 
@@ -52,14 +52,14 @@ namespace SMoGu.App
         /// с помощью авторегрессионной(AR) модели. 
         /// </summary>
         /// <param name="data"> Исходные данные. </param>
+        /// <param name="last"> Последнее значение в уже имеющемся списке полученных данных. </param>
         /// <param name="paramsCount"> Количество параметров для AR-модели. </param>
         /// <param name="coefs"> Коэффициенты AR-модели. </param>
         /// <returns> Спрогнозированное значение. </returns>
-        private static Tuple<decimal, DateTime> PredictNext(List<Tuple<decimal, DateTime>> data, int paramsCount, decimal[] coefs)
+        private static Tuple<decimal, DateTime> PredictNext(List<Tuple<decimal, DateTime>> data, Tuple<decimal, DateTime> last, 
+                                                            int paramsCount, decimal[] coefs)
         {
-            // константа
             decimal c = 0m;
-            // белый шум
             var whiteNoise = new decimal((rnd.NextDouble() * (1.0 + 1.0) - 1.0));
             var next = c + whiteNoise;
             var end = data.Count - 1;
@@ -67,7 +67,7 @@ namespace SMoGu.App
             {
                 next += data[end - i].Item1 * coefs[i];
             }
-            return Tuple.Create(next, data[end].Item2.AddDays(1));
+            return Tuple.Create(next, last.Item2.AddDays(1));
         }
 
         /// <summary>

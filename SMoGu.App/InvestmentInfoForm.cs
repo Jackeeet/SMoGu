@@ -33,9 +33,7 @@ namespace SMoGu.App
             chartPanel = new Panel
             {
                 Location = new Point(0, 30),
-                Size = new Size(ClientSize.Width - panelWidth, ClientSize.Width - labelHeight),
-                // временная заливка цветом 
-                BackColor = Color.AliceBlue,
+                Size = new Size(ClientSize.Width - panelWidth, ClientSize.Height - labelHeight),
             };
             CreateChart(investment);
 
@@ -55,7 +53,7 @@ namespace SMoGu.App
             {
                 nameLabel.Size = new Size(ClientSize.Width, labelHeight);
                 nameLabel.TextAlign = ContentAlignment.MiddleCenter;
-                chartPanel.Size = new Size(ClientSize.Width - panelWidth, ClientSize.Width - labelHeight);
+                chartPanel.Size = new Size(ClientSize.Width - panelWidth, ClientSize.Height - labelHeight);
                 infoPanel.Location = new Point(chartPanel.Width, labelHeight);
             };
 
@@ -73,16 +71,21 @@ namespace SMoGu.App
             #endregion
         }
 
+        /// <summary>
+        /// Строит график, отображающий изменения прогнозируемого курса валюты. 
+        /// </summary>
+        /// <param name="investment"> Вариант инвестиции. </param>
         private void CreateChart(Investment investment)
         {
             chart = new Chart
             {
-                Size = chartPanel.Size
+                Size = chartPanel.Size,
+                Dock = DockStyle.Fill
             };
 
             chart.ChartAreas.Add("invChart");
-            chart.ChartAreas[0].AxisX.Interval = investment.ValuesOverTime.Count / 10;
-            chart.ChartAreas[0].AxisX = new Axis { Title = "x" };
+            chart.ChartAreas[0].AxisX = new Axis { Title = "Дата" };
+            chart.ChartAreas[0].AxisY = new Axis { Title = "Прогнозируемый курс валюты"};
             chart.Series.Clear();
             chart.Series.Add(new Series());
             chart.Series[0].ChartType = SeriesChartType.Line;
@@ -125,9 +128,6 @@ namespace SMoGu.App
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvestmentInfoForm));
             this.SuspendLayout();
-            // 
-            // InvestmentInfoForm
-            // 
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InvestmentInfoForm";

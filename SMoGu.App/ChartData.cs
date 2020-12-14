@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SMoGu.App
 {
     /// <summary>
-    /// класс данных и методов для построения графика
+    /// Класс данных и методов для построения графика.
     /// </summary>
     public class ChartData : ICreatable<Tuple<decimal, DateTime>>
     {
         /// <summary>
-        /// очередь, из которой берутся данные для построения графика
+        /// Очередь, из которой берутся данные для построения графика.
         /// </summary>
         public Queue<Tuple<decimal, decimal, decimal, DateTime>> queue;
         /// <summary>
-        /// временной промежуток по которому строится график
+        /// Временной промежуток, по которому строится график.
         /// </summary>
         public readonly TimeOptions duration;
         /// <summary>
-        /// конструктор класса
+        /// Конструктор класса.
         /// </summary>
-        /// <param name="duration"> временной промежуток по которому строится график </param>
+        /// <param name="duration"> Временной промежуток, по которому строится график. </param>
         public ChartData(TimeOptions duration)
         {
             this.duration = duration;
@@ -30,9 +28,9 @@ namespace SMoGu.App
             queue = parcer.GetData();
         }
         /// <summary>
-        /// метод, создающий список содержащий пары "курс валюты - дата" по заданному типу валюты
+        /// Метод, создающий список, содержащий пары "курс валюты - дата" по заданному типу валюты.
         /// </summary>
-        /// <param name="currency"> заданный тип валюты </param>
+        /// <param name="currency"> Заданный тип валюты. </param>
         /// <returns></returns>
         public List<Tuple<decimal, DateTime>> CreateNewTupleList(CurrencyType currency)
         {
@@ -40,10 +38,10 @@ namespace SMoGu.App
             return CreateHelper(queue, currency);
         }
         /// <summary>
-        /// вспомогательный метод создания списка, который преобразует очередь в список пар
+        /// Вспомогательный метод создания списка, который преобразует очередь в список пар.
         /// </summary>
-        /// <param name="queue"> исходная очередь </param>
-        /// <param name="currency"> тип валюты по которому строится график </param>
+        /// <param name="queue"> Исходная очередь. </param>
+        /// <param name="currency"> Тип валюты, по которому строится график. </param>
         /// <returns></returns>
         private static List<Tuple<decimal, DateTime>> CreateHelper(Queue<Tuple<decimal, decimal, decimal, DateTime>> queue, CurrencyType currency)
         {

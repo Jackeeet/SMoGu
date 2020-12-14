@@ -27,36 +27,70 @@ namespace SMoGu.App
 
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
-            // эта штука хранит варианты инвестиций и должна быть инициализирована
+            // Инициализация контейнера для хранения вариантов инвестиций.
             investments = new Investments();
-
-            buttonForCreateGrafic.Enabled = false;//отключение кнопки создания графика
-            buttonForCreateInvestment.Enabled = false;//отключение кнопки создания инвестиции
-            buttonInfo.Enabled = false;//отключение кнопки подробнйо информации об инвестциии
+            // Отключение кнопки создания графика.
+            buttonForCreateGrafic.Enabled = false;
+            // Отключение кнопки создания инвестиции.
+            buttonForCreateInvestment.Enabled = false;
+            // Отключение кнопки для подробной информации об инвестиции.
+            buttonInfo.Enabled = false;
             buttonSave.Enabled = false;
+
+            toolTip = new ToolTip
+            {
+                AutoPopDelay = 3000,
+                InitialDelay = 1000,
+                ReshowDelay = 500,
+            };
+            AddToolTips();
         }
         /// <summary>
-        /// Метод для создания графика
+        /// Метод для инициализации подсказок.
+        /// </summary>
+        private void AddToolTips()
+        {
+            toolTip.SetToolTip(radioButton1, "Курс доллара к рублю");
+            toolTip.SetToolTip(radioButton2, "Курс евро к рублю");
+            toolTip.SetToolTip(radioButton3, "Курс юаня к рублю");
+            toolTip.SetToolTip(radioButtonOneWeek, "Динамика курса за прошедшую неделю");
+            toolTip.SetToolTip(radioButtonOneMonth, "Динамика курса за прошедший месяц");
+            toolTip.SetToolTip(radioButtonThreeMonth, "Динамика курса за 3 прошедших месяца");
+            toolTip.SetToolTip(radioButtonHalfYear, "Динамика курса за 6 прошедших месяцев");
+            toolTip.SetToolTip(radioButtonOneYear, "Динамика курса за прошедший год");
+
+            toolTip.SetToolTip(buttonForCreateGrafic, "Построить график по указанным параметрам");
+            toolTip.SetToolTip(buttonForCreateInvestment, "Создать предполагаемый вариант инвестиции");
+            toolTip.SetToolTip(buttonInfo, "Показать подробную информацию о выбранном варианте инвестиции");
+            toolTip.SetToolTip(buttonSave, "Записать информацию о всех созданных вариантах в текстовый файл");
+        }
+
+        /// <summary>
+        /// Метод для создания графика.
         /// </summary>
         public void CreateGrafic()
         {
             var queue = new ChartData(WhatPeriodOn());
-            var queueItems = queue.CreateNewTupleList(currency);//получаем лист данных о выбранной валюте
-
-            investments.SetCalc(queue);//сеанс предсказывания для графика
-
-            chart1.ChartAreas[0].AxisX.Interval = queueItems.Count / 10;//интервал отметок по оси X
-            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = -60;//отметка интервала отображается под углом
+            // Получаем лист данных о выбранной валюте.
+            var queueItems = queue.CreateNewTupleList(currency);
+            // Cеанс прогнозирования изменения курса валют.
+            investments.SetCalc(queue);
+            // Интервал отметок по оси X.
+            chart1.ChartAreas[0].AxisX.Interval = queueItems.Count / 10;
+            // Отображение отметки интервала под углом.
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = -60;
 
             var ax = new Axis();
             ax.Title = WhatPeriodOn().ToString();
-            chart1.ChartAreas[0].AxisX = ax;//название оси в соотвествии с периодом
-
-            chart1.Series[0].Points.Clear();//отчищаем график от предыдущего
+            // Название оси в соотвествии с периодом.
+            chart1.ChartAreas[0].AxisX = ax;
+            // Удаление предыдущего графика.
+            chart1.Series[0].Points.Clear();
             foreach (var element in queueItems)
             {
                 decimal y;
-                var x = element.Item2.ToString("d");//форматирование времени по типу ДД.ММ.ГГГГ
+                // Форматирование времени по типу ДД.ММ.ГГГГ.
+                var x = element.Item2.ToString("d");
                 try
                 {
                     y = element.Item1;
@@ -65,10 +99,11 @@ namespace SMoGu.App
                 {
                     break;
                 }
-                chart1.Series[0].Points.AddXY(x, y);//рисуем точку
+                // Отрисовка точки.
+                chart1.Series[0].Points.AddXY(x, y);
             }
-            buttonForCreateInvestment.Enabled = true;//включение кнопки создания инвестиции
-            //только после построения графика
+            // Включение кнопки создания инвестиции (только после построения графика). 
+            buttonForCreateInvestment.Enabled = true;
         }
         /// <summary>
         /// Метод отслеживания однократного нажатия на кнопку Создания графика
@@ -77,7 +112,6 @@ namespace SMoGu.App
         /// <param name="e">Событие однократного нажатия</param>
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
-            //CreateHelper()
             CreateGrafic();
         }
         /// <summary>
@@ -135,10 +169,12 @@ namespace SMoGu.App
         /// <param name="e">Событие одноератного нажатия</param>
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
-            var investmentCreationForm = new InvestmentCreationForm(this.investments, CheckedCurrency());//создание формы создания инвестиции
-            investmentCreationForm.Show(); // открытие другого окна
-            this.Hide(); // закрыть текущее окно
-            // возвращение главного окна при закрытии investmentCreationForm
+            var investmentCreationForm = new InvestmentCreationForm(this.investments, CheckedCurrency());
+            // Открытие формы создания инвестиции.
+            investmentCreationForm.Show();
+            // Закрытие текущего окна.
+            this.Hide(); 
+            // Возвращение главного окна при закрытии investmentCreationForm.
             investmentCreationForm.FormClosing += (sender2, args) =>
             {
                 this.Show();
@@ -163,7 +199,8 @@ namespace SMoGu.App
             {
                 var element = investments.Invs[listBoxInvestments.SelectedIndex];
                 var formInfo = new InvestmentInfoForm(element);
-                formInfo.Show();//открытие окна с подробной информацией
+                // Открытие окна с подробной информацией.
+                formInfo.Show();
             }
             catch(ArgumentOutOfRangeException)
             {
@@ -240,7 +277,8 @@ namespace SMoGu.App
             if ((radioButton1.Checked || radioButton2.Checked || radioButton3.Checked) &&
                     (radioButtonOneWeek.Checked || radioButtonThreeMonth.Checked || radioButtonOneYear.Checked
                     || radioButtonOneMonth.Checked || radioButtonHalfYear.Checked))
-                buttonForCreateGrafic.Enabled = true;//включение кнопки создания графика
+                // Включение кнопки создания графика.
+                buttonForCreateGrafic.Enabled = true;
         }
 
         private void listBoxInvestments_SelectedIndexChanged(object sender, EventArgs e)
@@ -258,5 +296,7 @@ namespace SMoGu.App
             else if (radioButton3.Checked) return CurrencyType.CNY;
             else throw new ArgumentException();
         }
+
+        private static ToolTip toolTip;
     }
 }

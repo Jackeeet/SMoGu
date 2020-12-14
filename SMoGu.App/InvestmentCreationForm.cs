@@ -39,17 +39,17 @@ namespace SMoGu.App
 
             saveButton.Click += (sender, args) =>
             {
-                // проверка того, все ли поля формы были заполнены
+                // Проверка того, все ли поля формы были заполнены.
                 if (!AllFieldsAreFilled())
                 {
                     MessageBox.Show("Заполните все поля формы");
                 }
-                // создание варианта инвестиции
+                // Создание варианта инвестиции.
                 else
                 {
-                    // проверка соответствия ввода маске 
-                    // максимальное допустимое значение - 9999999.99
-                    // при вводе более 2 знаков после запятой значение округляется до 2 знаков
+                    // Проверка соответствия ввода маске. 
+                    // Максимальное допустимое значение - 9999999.99.
+                    // При вводе более 2 знаков после запятой значение округляется до 2 знаков.
                     if (amountRegex.IsMatch(amountBox.Text))
                     {
                         var amount = new decimal(Math.Round(double.Parse(amountBox.Text, CultureInfo.InvariantCulture), 2));
@@ -286,9 +286,6 @@ namespace SMoGu.App
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvestmentCreationForm));
             this.SuspendLayout();
-            // 
-            // InvestmentCreationForm
-            // 
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InvestmentCreationForm";
