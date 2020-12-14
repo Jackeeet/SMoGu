@@ -48,6 +48,7 @@ namespace SMoGu.App
             this.radioButtonOneWeek = new System.Windows.Forms.RadioButton();
             this.textPeriod = new System.Windows.Forms.TextBox();
             this.listBoxInvestments = new System.Windows.Forms.ListBox();
+            this.buttonSort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -135,7 +136,7 @@ namespace SMoGu.App
             this.buttonForCreateInvestment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonForCreateInvestment.Location = new System.Drawing.Point(572, 32);
             this.buttonForCreateInvestment.Name = "buttonForCreateInvestment";
-            this.buttonForCreateInvestment.Size = new System.Drawing.Size(158, 29);
+            this.buttonForCreateInvestment.Size = new System.Drawing.Size(166, 29);
             this.buttonForCreateInvestment.TabIndex = 8;
             this.buttonForCreateInvestment.Text = "Создать инвестицию";
             this.buttonForCreateInvestment.UseVisualStyleBackColor = true;
@@ -146,7 +147,7 @@ namespace SMoGu.App
             this.buttonInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonInfo.Location = new System.Drawing.Point(571, 429);
             this.buttonInfo.Name = "buttonInfo";
-            this.buttonInfo.Size = new System.Drawing.Size(158, 43);
+            this.buttonInfo.Size = new System.Drawing.Size(167, 43);
             this.buttonInfo.TabIndex = 9;
             this.buttonInfo.Text = "Информация об инвестиции";
             this.buttonInfo.UseVisualStyleBackColor = true;
@@ -238,18 +239,30 @@ namespace SMoGu.App
             // listBoxInvestments
             // 
             this.listBoxInvestments.FormattingEnabled = true;
-            this.listBoxInvestments.Location = new System.Drawing.Point(572, 81);
+            this.listBoxInvestments.Location = new System.Drawing.Point(572, 120);
             this.listBoxInvestments.Name = "listBoxInvestments";
             this.listBoxInvestments.ScrollAlwaysVisible = true;
-            this.listBoxInvestments.Size = new System.Drawing.Size(157, 342);
+            this.listBoxInvestments.Size = new System.Drawing.Size(166, 303);
             this.listBoxInvestments.TabIndex = 17;
             this.listBoxInvestments.SelectedIndexChanged += new System.EventHandler(this.listBoxInvestments_SelectedIndexChanged);
+            // 
+            // buttonSort
+            // 
+            this.buttonSort.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.2F);
+            this.buttonSort.Location = new System.Drawing.Point(572, 81);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(166, 33);
+            this.buttonSort.TabIndex = 18;
+            this.buttonSort.Text = "Сортировать по доходности";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(750, 515);
+            this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.listBoxInvestments);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.radioButton3);
@@ -288,6 +301,7 @@ namespace SMoGu.App
         private System.Windows.Forms.RadioButton radioButtonOneYear;
         private System.Windows.Forms.RadioButton radioButtonThreeMonth;
         public System.Windows.Forms.ListBox listBoxInvestments;
+        private System.Windows.Forms.Button buttonSort;
     }
 }
 

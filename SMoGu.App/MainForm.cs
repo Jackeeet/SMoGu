@@ -36,6 +36,13 @@ namespace SMoGu.App
             // Отключение кнопки для подробной информации об инвестиции.
             buttonInfo.Enabled = false;
             buttonSave.Enabled = false;
+            buttonSort.Enabled = false;
+            buttonForCreateGrafic.Enabled = false;
+
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                MessageBox.Show("Отсутствует или ограниченно физическое подключение к сети\nПроверьте настройки вашего сетевого подключения");
+            }
 
             toolTip = new ToolTip
             {
@@ -184,7 +191,11 @@ namespace SMoGu.App
                 if (form.DialogResult == DialogResult.OK)
                 {
                     this.listBoxInvestments.Items.Add(this.investments.Invs.Last());
-                    buttonSave.Enabled = true;
+                    if (this.listBoxInvestments.Items.Count > 0)
+                    {
+                        buttonSave.Enabled = true;
+                        buttonSort.Enabled = true;
+                    }
                 }
             };
         }
@@ -298,5 +309,13 @@ namespace SMoGu.App
         }
 
         private static ToolTip toolTip;
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            investments.GetBestOptions();
+            this.listBoxInvestments.Items.Clear();
+            foreach (var f in investments.Invs)
+            this.listBoxInvestments.Items.Add(f);
+        }
     }
 }
