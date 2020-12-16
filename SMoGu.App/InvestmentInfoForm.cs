@@ -22,6 +22,7 @@ namespace SMoGu.App
         /// <param name="investment"> Вариант инвестиции, информация о котором будет отображена. </param>
         public InvestmentInfoForm(Investment investment)
         {
+            BackColor = Color.AliceBlue;
             var nameLabel = new Label
             {
                 Location = new Point(0, 0),
@@ -132,7 +133,6 @@ namespace SMoGu.App
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InvestmentInfoForm";
             this.ResumeLayout(false);
-
         }
         /// <summary>
         /// Создает текстовое поле с указанным содержимым. 

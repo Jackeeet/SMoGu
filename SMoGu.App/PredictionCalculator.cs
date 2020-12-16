@@ -38,7 +38,7 @@ namespace SMoGu.App
             };
 
             // Количество параметров, вычисляемых для авторегрессии.
-            var paramsCount = data.Count / 2;
+            var paramsCount = 5;
             var coefs = DetermineARCoefs(data, paramsCount);
 
             for (int i = 0; i < predictionCount; i++)

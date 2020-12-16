@@ -68,6 +68,7 @@ namespace SMoGu.App
 
             toolTip.SetToolTip(buttonForCreateGrafic, "Построить график по указанным параметрам");
             toolTip.SetToolTip(buttonForCreateInvestment, "Создать предполагаемый вариант инвестиции");
+            toolTip.SetToolTip(buttonSort, "Отсортировать варианты по убыванию доходности");
             toolTip.SetToolTip(buttonInfo, "Показать подробную информацию о выбранном варианте инвестиции");
             toolTip.SetToolTip(buttonSave, "Записать информацию о всех созданных вариантах в текстовый файл");
         }
