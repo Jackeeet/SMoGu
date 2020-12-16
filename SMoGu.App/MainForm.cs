@@ -114,67 +114,67 @@ namespace SMoGu.App
             buttonForCreateInvestment.Enabled = true;
         }
         /// <summary>
-        /// Метод отслеживания однократного нажатия на кнопку Создания графика
+        /// Метод отслеживания однократного нажатия на кнопку Создания графика.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие однократного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие однократного нажатия.</param>
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
             CreateGrafic();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку USD
+        /// Метод отслеживания нажатия на радиокнопку USD.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие нажатия.</param>
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             currency = CurrencyType.USD;
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку EUR
+        /// Метод отслеживания нажатия на радиокнопку EUR.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие нажатия.</param>
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             currency = CurrencyType.EUR;
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку CNY
+        /// Метод отслеживания нажатия на радиокнопку CNY.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие нажатия.</param>
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             currency = CurrencyType.CNY;
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод, который сохраняет инвестицию на коипьютер
+        /// Метод, который сохраняет инвестицию на коипьютер.
         /// </summary>
-        private void SaveInDocement()
+        private void SaveInDocument()
         {
             
             var saveToFile = new DBManager();
             saveToFile.SaveFile(investments);
         }
         /// <summary>
-        /// Метод отслеживания нажатия на кнопку Сохранения
+        /// Метод отслеживания нажатия на кнопку Сохранения.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие однократного нажатия.</param>
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            SaveInDocement();
+            SaveInDocument();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на кнопку Создания инвестции
+        /// Метод отслеживания нажатия на кнопку Создания инвестиции.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void buttonCreateInvesment(object sender, EventArgs e)
         {
             var investmentCreationForm = new InvestmentCreationForm(this.investments, CheckedCurrency());
@@ -201,10 +201,10 @@ namespace SMoGu.App
             };
         }
         /// <summary>
-        /// Метод отслеживания нажатия на кнопку Информация и инвестиции
+        /// Метод отслеживания нажатия на кнопку Информация о инвестиции.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления. </param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void buttonTrackInvestment_Click(object sender, EventArgs e)
         {
             try
@@ -219,52 +219,52 @@ namespace SMoGu.App
             }
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку Half Year
+        /// Метод отслеживания нажатия на радиокнопку Half Year.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void radioButtonHalfYear_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку One Month
+        /// Метод отслеживания нажатия на радиокнопку One Month.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void radioButtonOneMonth_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку One Year
+        /// Метод отслеживания нажатия на радиокнопку One Year.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void radioButtonOneYear_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку Three Month
+        /// Метод отслеживания нажатия на радиокнопку Three Month.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void radioButtonThreeMonth_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод отслеживания нажатия на радиокнопку One Week
+        /// Метод отслеживания нажатия на радиокнопку One Week.
         /// </summary>
-        /// <param name="sender">Ссылка на элемент управления</param>
-        /// <param name="e">Событие одноератного нажатия</param>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие одноератного нажатия.</param>
         private void radioButtonOneWeek_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
         /// <summary>
-        /// Метод, который определяет какой период выбран
+        /// Метод, который определяет, какой период выбран.
         /// </summary>
         /// <returns></returns>
         private TimeOptions WhatPeriodOn()
@@ -282,7 +282,7 @@ namespace SMoGu.App
             else throw new ArgumentException("Ни одна из кнопок периода времени не была выбрана");
         }
         /// <summary>
-        /// Метод, который активирует кнопки Создания Графика
+        /// Метод, который активирует кнопки Создания Графика.
         /// </summary>
         private void OnOffBtnsCreateGrafAndInvs()
         {
