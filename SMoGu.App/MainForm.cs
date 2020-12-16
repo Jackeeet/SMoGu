@@ -120,7 +120,14 @@ namespace SMoGu.App
         /// <param name="e">Событие однократного нажатия.</param>
         private void buttonCreateGrafic(object sender, EventArgs e)
         {
-            CreateGrafic();
+            try
+            {
+                CreateGrafic();
+            }
+            catch (System.Net.WebException)
+            {
+                MessageBox.Show("Отсутствует или ограниченно физическое подключение к сети\nПроверьте настройки вашего сетевого подключения");
+            }
         }
         /// <summary>
         /// Метод отслеживания нажатия на радиокнопку USD.
