@@ -6,6 +6,9 @@ using System.Data;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс, обеспечивающий сбор данных о динамике курса валют.
+    /// </summary>
     class DailyDataParser : IDataParser<Tuple<decimal, decimal, decimal, DateTime>>
     {
         /// <summary>
@@ -96,7 +99,7 @@ namespace SMoGu.App
             }
             catch
             {
-                ParceData();
+                ParseData();
             }
             for (int i = 0; i < listDate.Count; i++)
                 queue.Enqueue(Tuple.Create(listUSD[i], listEUR[i], listCNY[i], listDate[i]));
@@ -105,7 +108,7 @@ namespace SMoGu.App
         /// <summary>
         /// Метод, заполняющий все списки данными с сайта.
         /// </summary>
-        public void ParceData()
+        public void ParseData()
         {
             WebClient webClient = new WebClient();
             listUSD = new List<decimal>();
@@ -113,14 +116,14 @@ namespace SMoGu.App
             listCNY = new List<decimal>();
             listDate = new List<DateTime>();
             foreach (var ID in IDS)
-                Parce(webClient, ID);
+                Parse(webClient, ID);
         }
         /// <summary>
         /// Метод - парсер данных с сайта ЦБ РФ по передаваемым критериям.
         /// </summary>
         /// <param name="webClient"> Веб-клиент, объект содержащий в себе методы для парсинга. </param>
         /// <param name="ID"> Уникальный идентификатор валюты, для которой производится парсинг. </param>
-        private void Parce(WebClient webClient, Tuple<string, CurrencyType> ID)
+        private void Parse(WebClient webClient, Tuple<string, CurrencyType> ID)
         {
             var URL = "https://cbr.ru/currency_base/dynamics/?UniDbQuery.Posted=True&UniDbQuery.mode=1&UniDbQuery." +
                "date_req1=&UniDbQuery.date_req2=&UniDbQuery.VAL_NM_RQ=" +
@@ -131,16 +134,16 @@ namespace SMoGu.App
                finalDate;
             var data = webClient.DownloadString(URL);
             var collectionResults = System.Text.RegularExpressions.Regex.Matches(data, @"<td>([0-9]+\,[0-9]+)</td>");
-            ParceHelper(collectionResults, ID);
+            ParseHelper(collectionResults, ID);
             if (ID.Item2.Equals(CurrencyType.CNY))
-                ParceDate(data);
+                ParseDate(data);
         }
         /// <summary>
         /// Вспомогательный метод для парсинга, в котором определяется, какой список заполнять.
         /// </summary>
         /// <param name="collectionResults"> Список полученных значений с сайта. </param>
         /// <param name="ID"> Уникальный идентификатор валюты, для которой производится парсинг. </param>
-        private void ParceHelper(System.Text.RegularExpressions.MatchCollection collectionResults, Tuple<string, CurrencyType> ID)
+        private void ParseHelper(System.Text.RegularExpressions.MatchCollection collectionResults, Tuple<string, CurrencyType> ID)
         {
             var list = new List<decimal>();
             foreach (var e in collectionResults)
@@ -169,7 +172,7 @@ namespace SMoGu.App
         /// Метод, который парсит даты для дальнейшего сопоставления их с курсами валют.
         /// </summary>
         /// <param name="data"> Код страницы в строковом представлении для дальнейшей обработки. </param>
-        private void ParceDate(string data)
+        private void ParseDate(string data)
         {
             var collectionResults = System.Text.RegularExpressions.Regex.Matches(data, @"<td>([0-9]+\.[0-9]+\.[0-9]+)</td>");
             foreach (var e in collectionResults)
@@ -199,9 +202,9 @@ namespace SMoGu.App
             // Парсинг полученных данных и заполнение соответствующих списков.
             for (int i = 0; i < usdRows.Count; i++)
             {
-                listUSD.Add(ParceCBRValues(usdRows[i]));
-                listEUR.Add(ParceCBRValues(eurRows[i]));
-                listCNY.Add(ParceCBRValues(cnyRows[i]));
+                listUSD.Add(ParseCBRValues(usdRows[i]));
+                listEUR.Add(ParseCBRValues(eurRows[i]));
+                listCNY.Add(ParseCBRValues(cnyRows[i]));
                 listDate.Add(DateTime.Parse(usdRows[i].ItemArray[0].ToString()));
             }
         }
@@ -212,6 +215,6 @@ namespace SMoGu.App
         /// </summary>
         /// <param name="row"> Ряд в таблице данных. </param>
         /// <returns> Значение курса валюты. </returns>
-        private decimal ParceCBRValues(DataRow row) => new decimal(double.Parse(row.ItemArray[3].ToString()) / double.Parse(row.ItemArray[2].ToString()));
+        private decimal ParseCBRValues(DataRow row) => new decimal(double.Parse(row.ItemArray[3].ToString()) / double.Parse(row.ItemArray[2].ToString()));
     }
 }

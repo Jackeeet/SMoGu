@@ -14,6 +14,6 @@
         /// <summary>
         /// Основной метод парсинга данных с произвольного сайта.
         /// </summary>
-        void ParceData();
+        void ParseData();
     }
 }

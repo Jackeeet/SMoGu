@@ -6,8 +6,16 @@ using System.Windows.Forms;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс, обеспечивающий сохранение данных.
+    /// </summary>
     class DBManager
     {
+        /// <summary>
+        /// Сохраняет данные о созданных вариантах инвестиции
+        /// в текстовый файл.
+        /// </summary>
+        /// <param name="invsForSave"> Список вариантов инвестиции. </param>
         public void SaveFile(Investments invsForSave)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();

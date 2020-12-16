@@ -12,11 +12,15 @@ namespace SMoGu.App
         /// <summary>
         /// Список для хранения созданных вариантов. 
         /// </summary>
-        public List<Investment> Invs; 
+        public List<Investment> Invs;
         /// <summary>
         /// Калькулятор, необходимый для прогнозирования изменений курса валют. 
         /// </summary>
-        public PredictionCalculator Calc { get; private set; }
+        private PredictionCalculator calc;
+        /// <summary>
+        /// Геттер для калькулятора.
+        /// </summary>
+        public PredictionCalculator GetCalc() { return calc; }
         /// <summary>
         /// Сеттер для калькулятора.
         /// </summary>
@@ -25,7 +29,7 @@ namespace SMoGu.App
         {
             if (data == null)
                 throw new ArgumentNullException();
-            Calc = new PredictionCalculator(data);
+            calc = new PredictionCalculator(data);
         }
         /// <summary>
         /// Конструктор класса.
@@ -45,7 +49,7 @@ namespace SMoGu.App
         /// <param name="period"> Период в днях, по окончанию которого предполагается продать купленную валюту. </param>
         public void AddInvestment(string name, decimal amount, CurrencyType currency, int period)
         {
-            Invs.Add(new Investment(name, amount, currency, period, Calc));
+            Invs.Add(new Investment(name, amount, currency, period, GetCalc()));
         }
 
         /// <summary>

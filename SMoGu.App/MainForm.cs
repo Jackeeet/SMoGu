@@ -41,7 +41,7 @@ namespace SMoGu.App
 
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageBox.Show("Отсутствует или ограниченно физическое подключение к сети\nПроверьте настройки вашего сетевого подключения");
+                MessageBox.Show("Отсутствует или ограничено физическое подключение к сети\nПроверьте настройки вашего сетевого подключения");
             }
 
             toolTip = new ToolTip
@@ -118,7 +118,7 @@ namespace SMoGu.App
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
         /// <param name="e">Событие однократного нажатия.</param>
-        private void buttonCreateGrafic(object sender, EventArgs e)
+        private void ButtonCreateGrafic(object sender, EventArgs e)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace SMoGu.App
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
         /// <param name="e">Событие нажатия.</param>
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
             currency = CurrencyType.USD;
             OnOffBtnsCreateGrafAndInvs();
@@ -144,7 +144,7 @@ namespace SMoGu.App
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
         /// <param name="e">Событие нажатия.</param>
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
             currency = CurrencyType.EUR;
             OnOffBtnsCreateGrafAndInvs();
@@ -154,7 +154,7 @@ namespace SMoGu.App
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
         /// <param name="e">Событие нажатия.</param>
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton3_CheckedChanged(object sender, EventArgs e)
         {
             currency = CurrencyType.CNY;
             OnOffBtnsCreateGrafAndInvs();
@@ -173,7 +173,7 @@ namespace SMoGu.App
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
         /// <param name="e">Событие однократного нажатия.</param>
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             SaveInDocument();
         }
@@ -181,8 +181,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на кнопку Создания инвестиции.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void buttonCreateInvesment(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void ButtonCreateInvesment(object sender, EventArgs e)
         {
             var investmentCreationForm = new InvestmentCreationForm(this.investments, CheckedCurrency());
             // Открытие формы создания инвестиции.
@@ -211,8 +211,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на кнопку Информация о инвестиции.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления. </param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void buttonTrackInvestment_Click(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void ButtonTrackInvestment_Click(object sender, EventArgs e)
         {
             try
             {
@@ -229,8 +229,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на радиокнопку Half Year.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void radioButtonHalfYear_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void RadioButtonHalfYear_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
@@ -238,8 +238,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на радиокнопку One Month.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void radioButtonOneMonth_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void RadioButtonOneMonth_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
@@ -247,8 +247,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на радиокнопку One Year.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void radioButtonOneYear_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void RadioButtonOneYear_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
@@ -256,8 +256,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на радиокнопку Three Month.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void radioButtonThreeMonth_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void RadioButtonThreeMonth_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
@@ -265,8 +265,8 @@ namespace SMoGu.App
         /// Метод отслеживания нажатия на радиокнопку One Week.
         /// </summary>
         /// <param name="sender">Ссылка на элемент управления.</param>
-        /// <param name="e">Событие одноератного нажатия.</param>
-        private void radioButtonOneWeek_CheckedChanged(object sender, EventArgs e)
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void RadioButtonOneWeek_CheckedChanged(object sender, EventArgs e)
         {
             OnOffBtnsCreateGrafAndInvs();
         }
@@ -299,15 +299,22 @@ namespace SMoGu.App
                 // Включение кнопки создания графика.
                 buttonForCreateGrafic.Enabled = true;
         }
-
-        private void listBoxInvestments_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Обработчик выбора варианта инвестиции. 
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void ListBoxInvestments_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxInvestments.SelectedIndex >= 0)
                 buttonInfo.Enabled = true;
              else
                 buttonInfo.Enabled = false;
         }
-
+        /// <summary>
+        /// Метод, определяющий, какая валюта выбрана пользователем.
+        /// </summary>
+        /// <returns> Тип валюты. </returns>
         public CurrencyType CheckedCurrency()
         {
             if (radioButton1.Checked) return CurrencyType.USD;
@@ -317,13 +324,22 @@ namespace SMoGu.App
         }
 
         private static ToolTip toolTip;
-
-        private void buttonSort_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Обработчик кнопки, осуществляющей сортировку. 
+        /// </summary>
+        /// <param name="sender">Ссылка на элемент управления.</param>
+        /// <param name="e">Событие однократного нажатия.</param>
+        private void ButtonSort_Click(object sender, EventArgs e)
         {
             investments.GetBestOptions();
             this.listBoxInvestments.Items.Clear();
             foreach (var f in investments.Invs)
             this.listBoxInvestments.Items.Add(f);
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

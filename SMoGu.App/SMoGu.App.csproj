@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="DailyDataParser.cs" />
     <Compile Include="CurrencyType.cs" />
-    <Compile Include="DataBaseCreator.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="EquationSolver.cs" />
     <Compile Include="ICreatable.cs" />

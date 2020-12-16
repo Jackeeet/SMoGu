@@ -73,8 +73,9 @@ namespace SMoGu.App
             title1.BorderWidth = 3;
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             title1.Name = "Title1";
-            title1.Text = "Grafic value";
+            title1.Text = "Динамика курса";
             this.chart1.Titles.Add(title1);
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // buttonForCreateGrafic
             // 
@@ -85,7 +86,7 @@ namespace SMoGu.App
             this.buttonForCreateGrafic.TabIndex = 3;
             this.buttonForCreateGrafic.Text = "Построить график";
             this.buttonForCreateGrafic.UseVisualStyleBackColor = true;
-            this.buttonForCreateGrafic.Click += new System.EventHandler(this.buttonCreateGrafic);
+            this.buttonForCreateGrafic.Click += new System.EventHandler(this.ButtonCreateGrafic);
             // 
             // buttonSave
             // 
@@ -96,7 +97,7 @@ namespace SMoGu.App
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // radioButton1
             // 
@@ -107,7 +108,7 @@ namespace SMoGu.App
             this.radioButton1.TabIndex = 5;
             this.radioButton1.Text = "USD/RUB";
             this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -118,7 +119,7 @@ namespace SMoGu.App
             this.radioButton2.TabIndex = 6;
             this.radioButton2.Text = "EUR/RUB";
             this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
             // 
             // radioButton3
             // 
@@ -129,7 +130,7 @@ namespace SMoGu.App
             this.radioButton3.TabIndex = 7;
             this.radioButton3.Text = "CNY/RUB";
             this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.RadioButton3_CheckedChanged);
             // 
             // buttonForCreateInvestment
             // 
@@ -140,7 +141,7 @@ namespace SMoGu.App
             this.buttonForCreateInvestment.TabIndex = 8;
             this.buttonForCreateInvestment.Text = "Создать инвестицию";
             this.buttonForCreateInvestment.UseVisualStyleBackColor = true;
-            this.buttonForCreateInvestment.Click += new System.EventHandler(this.buttonCreateInvesment);
+            this.buttonForCreateInvestment.Click += new System.EventHandler(this.ButtonCreateInvesment);
             // 
             // buttonInfo
             // 
@@ -151,7 +152,7 @@ namespace SMoGu.App
             this.buttonInfo.TabIndex = 9;
             this.buttonInfo.Text = "Информация об инвестиции";
             this.buttonInfo.UseVisualStyleBackColor = true;
-            this.buttonInfo.Click += new System.EventHandler(this.buttonTrackInvestment_Click);
+            this.buttonInfo.Click += new System.EventHandler(this.ButtonTrackInvestment_Click);
             // 
             // panel2
             // 
@@ -171,69 +172,69 @@ namespace SMoGu.App
             this.radioButtonThreeMonth.AutoSize = true;
             this.radioButtonThreeMonth.Location = new System.Drawing.Point(103, 43);
             this.radioButtonThreeMonth.Name = "radioButtonThreeMonth";
-            this.radioButtonThreeMonth.Size = new System.Drawing.Size(83, 17);
+            this.radioButtonThreeMonth.Size = new System.Drawing.Size(72, 17);
             this.radioButtonThreeMonth.TabIndex = 7;
             this.radioButtonThreeMonth.TabStop = true;
-            this.radioButtonThreeMonth.Text = "ThreeMonth";
+            this.radioButtonThreeMonth.Text = "3 месяца";
             this.radioButtonThreeMonth.UseVisualStyleBackColor = true;
-            this.radioButtonThreeMonth.CheckedChanged += new System.EventHandler(this.radioButtonThreeMonth_CheckedChanged);
+            this.radioButtonThreeMonth.CheckedChanged += new System.EventHandler(this.RadioButtonThreeMonth_CheckedChanged);
             // 
             // radioButtonOneYear
             // 
             this.radioButtonOneYear.AutoSize = true;
             this.radioButtonOneYear.Location = new System.Drawing.Point(199, 43);
             this.radioButtonOneYear.Name = "radioButtonOneYear";
-            this.radioButtonOneYear.Size = new System.Drawing.Size(68, 17);
+            this.radioButtonOneYear.Size = new System.Drawing.Size(51, 17);
             this.radioButtonOneYear.TabIndex = 6;
             this.radioButtonOneYear.TabStop = true;
-            this.radioButtonOneYear.Text = "One year";
+            this.radioButtonOneYear.Text = "1 год";
             this.radioButtonOneYear.UseVisualStyleBackColor = true;
-            this.radioButtonOneYear.CheckedChanged += new System.EventHandler(this.radioButtonOneYear_CheckedChanged);
+            this.radioButtonOneYear.CheckedChanged += new System.EventHandler(this.RadioButtonOneYear_CheckedChanged);
             // 
             // radioButtonHalfYear
             // 
             this.radioButtonHalfYear.AutoSize = true;
             this.radioButtonHalfYear.Location = new System.Drawing.Point(199, 17);
             this.radioButtonHalfYear.Name = "radioButtonHalfYear";
-            this.radioButtonHalfYear.Size = new System.Drawing.Size(67, 17);
+            this.radioButtonHalfYear.Size = new System.Drawing.Size(78, 17);
             this.radioButtonHalfYear.TabIndex = 5;
             this.radioButtonHalfYear.TabStop = true;
-            this.radioButtonHalfYear.Text = "Half year";
+            this.radioButtonHalfYear.Text = "6 месяцев";
             this.radioButtonHalfYear.UseVisualStyleBackColor = true;
-            this.radioButtonHalfYear.CheckedChanged += new System.EventHandler(this.radioButtonHalfYear_CheckedChanged);
+            this.radioButtonHalfYear.CheckedChanged += new System.EventHandler(this.RadioButtonHalfYear_CheckedChanged);
             // 
             // radioButtonOneMonth
             // 
             this.radioButtonOneMonth.AutoSize = true;
             this.radioButtonOneMonth.Location = new System.Drawing.Point(103, 17);
             this.radioButtonOneMonth.Name = "radioButtonOneMonth";
-            this.radioButtonOneMonth.Size = new System.Drawing.Size(77, 17);
+            this.radioButtonOneMonth.Size = new System.Drawing.Size(66, 17);
             this.radioButtonOneMonth.TabIndex = 3;
             this.radioButtonOneMonth.TabStop = true;
-            this.radioButtonOneMonth.Text = "One month";
+            this.radioButtonOneMonth.Text = "1 месяц";
             this.radioButtonOneMonth.UseVisualStyleBackColor = true;
-            this.radioButtonOneMonth.CheckedChanged += new System.EventHandler(this.radioButtonOneMonth_CheckedChanged);
+            this.radioButtonOneMonth.CheckedChanged += new System.EventHandler(this.RadioButtonOneMonth_CheckedChanged);
             // 
             // radioButtonOneWeek
             // 
             this.radioButtonOneWeek.AutoSize = true;
             this.radioButtonOneWeek.Location = new System.Drawing.Point(14, 43);
             this.radioButtonOneWeek.Name = "radioButtonOneWeek";
-            this.radioButtonOneWeek.Size = new System.Drawing.Size(74, 17);
+            this.radioButtonOneWeek.Size = new System.Drawing.Size(70, 17);
             this.radioButtonOneWeek.TabIndex = 2;
             this.radioButtonOneWeek.TabStop = true;
-            this.radioButtonOneWeek.Text = "One week";
+            this.radioButtonOneWeek.Text = "1 неделя";
             this.radioButtonOneWeek.UseVisualStyleBackColor = true;
-            this.radioButtonOneWeek.CheckedChanged += new System.EventHandler(this.radioButtonOneWeek_CheckedChanged);
+            this.radioButtonOneWeek.CheckedChanged += new System.EventHandler(this.RadioButtonOneWeek_CheckedChanged);
             // 
             // textPeriod
             // 
             this.textPeriod.Enabled = false;
-            this.textPeriod.Location = new System.Drawing.Point(14, 14);
+            this.textPeriod.Location = new System.Drawing.Point(6, 17);
             this.textPeriod.Name = "textPeriod";
             this.textPeriod.Size = new System.Drawing.Size(82, 20);
             this.textPeriod.TabIndex = 0;
-            this.textPeriod.Text = "Select period";
+            this.textPeriod.Text = "Период";
             this.textPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // listBoxInvestments
@@ -244,7 +245,7 @@ namespace SMoGu.App
             this.listBoxInvestments.ScrollAlwaysVisible = true;
             this.listBoxInvestments.Size = new System.Drawing.Size(166, 303);
             this.listBoxInvestments.TabIndex = 17;
-            this.listBoxInvestments.SelectedIndexChanged += new System.EventHandler(this.listBoxInvestments_SelectedIndexChanged);
+            this.listBoxInvestments.SelectedIndexChanged += new System.EventHandler(this.ListBoxInvestments_SelectedIndexChanged);
             // 
             // buttonSort
             // 
@@ -255,7 +256,7 @@ namespace SMoGu.App
             this.buttonSort.TabIndex = 18;
             this.buttonSort.Text = "Сортировать по доходности";
             this.buttonSort.UseVisualStyleBackColor = true;
-            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            this.buttonSort.Click += new System.EventHandler(this.ButtonSort_Click);
             // 
             // MainForm
             // 
