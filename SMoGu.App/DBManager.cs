@@ -9,7 +9,7 @@ namespace SMoGu.App
     /// <summary>
     /// Класс, обеспечивающий сохранение данных.
     /// </summary>
-    class DBManager
+    public class DBManager
     {
         /// <summary>
         /// Сохраняет данные о созданных вариантах инвестиции

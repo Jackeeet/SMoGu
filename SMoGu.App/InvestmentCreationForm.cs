@@ -11,7 +11,7 @@ namespace SMoGu.App
     /// <summary>
     /// Класс, описывающий форму для создания варианта инвестиции.
     /// </summary>
-    class InvestmentCreationForm : Form
+    public class InvestmentCreationForm : Form
     {
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace SMoGu.App
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvestmentCreationForm));
             this.SuspendLayout();
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InvestmentCreationForm";
             this.ResumeLayout(false);
 

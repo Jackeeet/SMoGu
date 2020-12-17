@@ -288,22 +288,22 @@ namespace SMoGu.App
 
         #endregion
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Button buttonForCreateGrafic;
-        private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.Button buttonForCreateInvestment;
-        private System.Windows.Forms.Button buttonInfo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textPeriod;
-        private System.Windows.Forms.RadioButton radioButtonHalfYear;
-        private System.Windows.Forms.RadioButton radioButtonOneMonth;
-        private System.Windows.Forms.RadioButton radioButtonOneWeek;
-        private System.Windows.Forms.RadioButton radioButtonOneYear;
-        private System.Windows.Forms.RadioButton radioButtonThreeMonth;
         public System.Windows.Forms.ListBox listBoxInvestments;
-        private System.Windows.Forms.Button buttonSort;
+        public System.Windows.Forms.Button buttonSave;
+        public System.Windows.Forms.Button buttonForCreateGrafic;
+        public System.Windows.Forms.Button buttonForCreateInvestment;
+        public System.Windows.Forms.RadioButton radioButton1;
+        public System.Windows.Forms.RadioButton radioButton2;
+        public System.Windows.Forms.RadioButton radioButton3;
+        public System.Windows.Forms.RadioButton radioButtonHalfYear;
+        public System.Windows.Forms.RadioButton radioButtonOneMonth;
+        public System.Windows.Forms.RadioButton radioButtonOneWeek;
+        public System.Windows.Forms.RadioButton radioButtonOneYear;
+        public System.Windows.Forms.RadioButton radioButtonThreeMonth;
+        public System.Windows.Forms.Button buttonInfo;
+        public System.Windows.Forms.Button buttonSort;
     }
 }
 
