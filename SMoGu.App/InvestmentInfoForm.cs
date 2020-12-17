@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Diagnostics;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SMoGu.App
 {
+    /// <summary>
+    /// Класс, описывающий форму с информацией о конкретном варианте инвестиции. 
+    /// </summary>
     public class InvestmentInfoForm : Form
     {
         private static int labelHeight = 30;
         private static int textBoxHeight = 50;
         private static Size cSize = new Size(800, 600);
-        //private static int panelWidth = (int)(cSize.Width * 0.3);
         private static int panelWidth = 240;
         private static Panel chartPanel, infoPanel;
+        private Chart chart;
+        /// <summary>
+        /// Конструктор класса. 
+        /// </summary>
+        /// <param name="investment"> Вариант инвестиции, информация о котором будет отображена. </param>
         public InvestmentInfoForm(Investment investment)
         {
+            BackColor = Color.AliceBlue;
             var nameLabel = new Label
             {
                 Location = new Point(0, 0),
@@ -30,10 +34,9 @@ namespace SMoGu.App
             chartPanel = new Panel
             {
                 Location = new Point(0, 30),
-                Size = new Size(ClientSize.Width - panelWidth, ClientSize.Width - labelHeight),
-                // временная заливка цветом 
-                BackColor = Color.AliceBlue,
+                Size = new Size(ClientSize.Width - panelWidth, ClientSize.Height - labelHeight),
             };
+            CreateChart(investment);
 
             infoPanel = new FlowLayoutPanel
             {
@@ -51,7 +54,7 @@ namespace SMoGu.App
             {
                 nameLabel.Size = new Size(ClientSize.Width, labelHeight);
                 nameLabel.TextAlign = ContentAlignment.MiddleCenter;
-                chartPanel.Size = new Size(ClientSize.Width - panelWidth, ClientSize.Width - labelHeight);
+                chartPanel.Size = new Size(ClientSize.Width - panelWidth, ClientSize.Height - labelHeight);
                 infoPanel.Location = new Point(chartPanel.Width, labelHeight);
             };
 
@@ -61,15 +64,55 @@ namespace SMoGu.App
             Controls.Add(infoPanel);
 
             infoPanel.Controls.Add(CreateLabel("Предполагаемый доход:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.ProceedsEstimate.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(Math.Round(investment.ProceedsEstimate, 3).ToString()));
             infoPanel.Controls.Add(CreateLabel("Предполагаемые риски:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.RiskEstimate.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(Math.Round(investment.RiskEstimate,5).ToString()));
             infoPanel.Controls.Add(CreateLabel("Процент выгодности:"));
-            infoPanel.Controls.Add(CreateTextBox(investment.ProfitPercentage.ToString()));
+            infoPanel.Controls.Add(CreateTextBox(Math.Round(investment.ProfitPercentage, 5).ToString()));
             #endregion
         }
 
+        /// <summary>
+        /// Строит график, отображающий изменения прогнозируемого курса валюты. 
+        /// </summary>
+        /// <param name="investment"> Вариант инвестиции. </param>
+        private void CreateChart(Investment investment)
+        {
+            chart = new Chart
+            {
+                Size = chartPanel.Size,
+                Dock = DockStyle.Fill
+            };
 
+            chart.ChartAreas.Add("invChart");
+            chart.ChartAreas[0].AxisX = new Axis { Title = "Дата" };
+            chart.ChartAreas[0].AxisY = new Axis { Title = "Прогнозируемый курс валюты"};
+            chart.Series.Clear();
+            chart.Series.Add(new Series());
+            chart.Series[0].ChartType = SeriesChartType.Line;
+
+            foreach (var value in investment.ValuesOverTime)
+            {
+                decimal y;
+                var x = value.Item2.ToString("d");
+                try
+                {
+                    y = value.Item1;
+                }
+                catch (InvalidOperationException)
+                {
+                    break;
+                }
+                chart.Series[0].Points.AddXY(x, y);
+            }
+            chartPanel.Controls.Add(chart);
+        }
+
+        /// <summary>
+        /// Создает лейбл с указанным текстом.
+        /// </summary>
+        /// <param name="text"> Текст лейбла. </param>
+        /// <returns> Созданный лейбл. </returns>
         private Label CreateLabel(string text)
         {
             return new Label
@@ -86,16 +129,17 @@ namespace SMoGu.App
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvestmentInfoForm));
             this.SuspendLayout();
-            // 
-            // InvestmentInfoForm
-            // 
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InvestmentInfoForm";
             this.ResumeLayout(false);
-
         }
-
+        /// <summary>
+        /// Создает текстовое поле с указанным содержимым. 
+        /// Созданное поле не допускает изменения.
+        /// </summary>
+        /// <param name="contents"> Содержимое поля. </param>
+        /// <returns> Созданное поле. </returns>
         private TextBox CreateTextBox(string contents)
         {
             return new TextBox
