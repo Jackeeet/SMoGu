@@ -31,8 +31,8 @@ namespace SMoGu.App
                 foreach(var el in text)
                     streamWriter.WriteLine(el);
                 streamWriter.Close();
+                MessageBox.Show("Сохранение прошло успешно");
             }
-            MessageBox.Show("Сохранение прошло успешно");
         }
     }
 }
