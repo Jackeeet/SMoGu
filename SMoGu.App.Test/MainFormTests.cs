@@ -9,22 +9,25 @@ namespace SMoGu.App.Test
     public class MainFormTests
     {
         [TestMethod]
+        //Проверка на большое количесво в листбоксе
         public void TestListBox()
         {
             var form = new MainForm();
             var testList = new List<string>();
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 testList.Add(i.ToString());
                 form.listBoxInvestments.Items.Add(testList[i]);
             }
 
-            Assert.AreEqual(10000, form.listBoxInvestments.Items.Count);
+            Assert.AreEqual(1000000, form.listBoxInvestments.Items.Count);
             Assert.AreEqual(true, form.listBoxInvestments.ScrollAlwaysVisible);
 
         }
 
         [TestMethod]
+        //Проверка того, что при 1ом открытии главной формы
+        //Все кнопки деактивированы
         public void TestAllButtonOnLoadMainForm()
         {
             var testForm = new MainForm();
@@ -47,6 +50,7 @@ namespace SMoGu.App.Test
             //кнопка не включается, потому что листбокс не пополнен
         }
         [TestMethod]
+        //Проверка того, что радиокнопки разгруппированы
         public void TestRadioButton()
         {
             var test = new MainForm();
@@ -57,6 +61,7 @@ namespace SMoGu.App.Test
         }
 
         [TestMethod]
+        //Проверка метода, который определяет какая валюта выбрана
         public void TestCheckedCurrency()
         {
             var test = new MainForm();
