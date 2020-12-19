@@ -9,7 +9,7 @@ namespace SMoGu.App
     /// <summary>
     /// Класс, обеспечивающий сбор данных о динамике курса валют.
     /// </summary>
-    class DailyDataParser : IDataParser<Tuple<decimal, decimal, decimal, DateTime>>
+    public class DailyDataParser : IDataParser<Tuple<decimal, decimal, decimal, DateTime>>
     {
         /// <summary>
         /// Дата, по которой берется последнее значение валюты в этот день.
