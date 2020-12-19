@@ -75,7 +75,6 @@ namespace SMoGu.App
             title1.Name = "Title1";
             title1.Text = "Динамика курса";
             this.chart1.Titles.Add(title1);
-            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // buttonForCreateGrafic
             // 

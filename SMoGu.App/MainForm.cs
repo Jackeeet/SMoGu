@@ -41,7 +41,7 @@ namespace SMoGu.App
 
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageBox.Show("Отсутствует или ограничено физическое подключение к сети\nПроверьте настройки вашего сетевого подключения");
+                MessageBox.Show("Отсутствует или ограничено подключение к сети.\nПроверьте настройки вашего сетевого подключения.");
             }
 
             toolTip = new ToolTip
@@ -126,7 +126,7 @@ namespace SMoGu.App
             }
             catch (System.Net.WebException)
             {
-                MessageBox.Show("Отсутствует или ограниченно физическое подключение к сети\nПроверьте настройки вашего сетевого подключения");
+                MessageBox.Show("Отсутствует или ограничено физическое подключение к сети.\nПроверьте настройки вашего сетевого подключения.");
             }
         }
         /// <summary>
@@ -164,7 +164,6 @@ namespace SMoGu.App
         /// </summary>
         private void SaveInDocument()
         {
-            
             var saveToFile = new DBManager();
             saveToFile.SaveFile(investments);
         }
@@ -188,7 +187,7 @@ namespace SMoGu.App
             // Открытие формы создания инвестиции.
             investmentCreationForm.Show();
             // Закрытие текущего окна.
-            this.Hide(); 
+            this.Hide();
             // Возвращение главного окна при закрытии investmentCreationForm.
             investmentCreationForm.FormClosing += (sender2, args) =>
             {
@@ -221,7 +220,7 @@ namespace SMoGu.App
                 // Открытие окна с подробной информацией.
                 formInfo.Show();
             }
-            catch(ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
             }
         }
@@ -308,7 +307,7 @@ namespace SMoGu.App
         {
             if (listBoxInvestments.SelectedIndex >= 0)
                 buttonInfo.Enabled = true;
-             else
+            else
                 buttonInfo.Enabled = false;
         }
         /// <summary>
@@ -334,12 +333,7 @@ namespace SMoGu.App
             investments.GetBestOptions();
             this.listBoxInvestments.Items.Clear();
             foreach (var f in investments.Invs)
-            this.listBoxInvestments.Items.Add(f);
-        }
-
-        private void chart1_Click(object sender, EventArgs e)
-        {
-
+                this.listBoxInvestments.Items.Add(f);
         }
     }
 }

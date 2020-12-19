@@ -57,7 +57,7 @@ namespace SMoGu.App
         /// </summary>
         public void GetBestOptions()
         {
-            Invs = Invs.OrderByDescending(inv => inv.ProceedsEstimate).ToList();
+            Invs = Invs.OrderByDescending(inv => inv.ProfitPercentage).ToList();
         }
     }
 }

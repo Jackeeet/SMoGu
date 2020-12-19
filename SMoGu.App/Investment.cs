@@ -70,7 +70,7 @@ namespace SMoGu.App
         /// <returns> Процент риска, связанный с вариантом инвестиции. </returns>
         private double CalculateRiskEstimate()
         {
-            if (ValuesOverTime != null)
+            if (ValuesOverTime != null && ValuesOverTime.Count >= 11)
             {
                 var current = ValuesOverTime[0].Item1;
                 var diff = ValuesOverTime.Take(11)
@@ -78,18 +78,18 @@ namespace SMoGu.App
                                          .Select(val => val.Item1)
                                          .Select(val => current - val);
                 var result = (double)diff.Aggregate((x, y) => x + y);
-                return Math.Round(result, 2);
+                return result >= 0.0 ? Math.Round(result, 2) : 0.0;
             }
             return 0.0;
         }
         /// <summary>
         /// Метод для расчета предполагаемой прибыли от продажи валюты.
-        /// Определяется по формуле [прибыль = сумма продажи - сумма покупки].
+        /// Определяется по формуле [прибыль = сумма продажи - сумма покупки]*сумма.
         /// </summary>
         /// <returns> Предполагаемая прибыль в рублях. </returns>
         private decimal CalculateProceedsEstimate()
         {
-            return Math.Round(ValuesOverTime[ValuesOverTime.Count - 1].Item1 - ValuesOverTime[0].Item1, 2);
+            return Math.Round(Amount * (ValuesOverTime[ValuesOverTime.Count - 1].Item1 - ValuesOverTime[0].Item1), 2);
         }
         /// <summary>
         /// Метод для расчета доходности инвестиции.

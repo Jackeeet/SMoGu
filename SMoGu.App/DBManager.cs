@@ -23,7 +23,7 @@ namespace SMoGu.App
 
             List<string> text = invsForSave.Invs.Select(i => (i.InvestmentName + "\n Валюта: " + i.Currency.ToString() + 
             "; Через " + i.PredictionPeriod + " дн. на счету будет " + Math.Round(i.ProceedsEstimate,2).ToString() + " Руб.; Процент риска " + Math.Round(i.RiskEstimate, 2) +
-            "%; Доходность инвестиции: " + Math.Round(i.ProfitPercentage * 100, 2) + " Руб.").ToString()).ToList();
+            "%; Доходность инвестиции: " + Math.Round(i.ProfitPercentage, 2) + "%").ToString()).ToList();
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
