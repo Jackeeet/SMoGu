@@ -51,9 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataParserTests.cs" />
+    <Compile Include="EquationSolverTests.cs" />
+    <Compile Include="PredictionCalcTests.cs" />
     <Compile Include="MainFormTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EquationSolverTests.cs" />
     <Compile Include="QueueTests.cs" />
     <Compile Include="TestDBManagercs.cs" />
   </ItemGroup>
